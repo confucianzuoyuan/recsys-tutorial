@@ -1,0 +1,25 @@
+<div class="row logindiv">
+  <div class="col-md-6 col-lg-offset-3">
+    <h3 style="margin-bottom: 40px">用户注册</h3>
+    <form #registerForm="ngForm" (ngSubmit)="register()">
+      <div class="form-group">
+        <label for="email">电子邮箱</label>
+        <input type="email" class="form-control" id="email"  [(ngModel)]="user.username" name="email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">登录密码</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <label for="repwd">确认密码</label>
+        <input type="password" class="form-control" id="repwd" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-default" [disabled]="!registerForm.form.valid"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 注册</button>
+      <div class="alert alert-danger" role="alert" [hidden] = "loginService.data['success']">
+        <strong>失败！</strong> {{loginService.data['message']}}
+      </div>
+    </form>
+    <h5><a routerLink="/login" routerLinkActive="active">用户登录</a></h5>
+  </div>
+
+</div>

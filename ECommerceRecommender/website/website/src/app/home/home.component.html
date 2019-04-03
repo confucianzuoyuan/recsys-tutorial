@@ -1,0 +1,36 @@
+<div>
+  <h3><span class="icon-uniE18E" aria-hidden="true" style="font-size: 20px;"></span> 实时推荐</h3>
+  <p class="descri">尚硅谷电商推荐系统猜你喜欢 <a [routerLink]="['/explore', { type: 'guess' }]" >更多...</a></p>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-lg-2 col-md-2" *ngFor="let guessProduct of guessProducts"><app-thumbnail [product]="guessProduct"></app-thumbnail></div>
+    </div>
+  </div>
+
+  <h3><span class="glyphicon glyphicon-heart" aria-hidden="true" style="font-size: 20px;"></span> 离线推荐</h3>
+  <p class="descri">最新添加的商品 <a [routerLink]="['/explore', { type: 'wish' }]" >更多...</a></p>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-lg-2 col-md-2" *ngFor="let wishProduct of wishProducts"><app-thumbnail [product]="wishProduct"></app-thumbnail></div>
+    </div>
+  </div>
+
+  <h3><span class="icon-whatshot" aria-hidden="true" style="font-size: 20px;"></span> 热门推荐</h3>
+  <p class="descri">尚硅谷电商推荐系统推荐了这些商品 <a [routerLink]="['/explore', { type: 'hot' }]" >更多...</a></p>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-lg-2 col-md-2" *ngFor="let hotProduct of hotProducts">
+        <app-thumbnail [product]="hotProduct"></app-thumbnail>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 20px;"></span> 评分最多</h3>
+  <p class="descri">为了改进推荐系统的精度，评分越多越好 <a [routerLink]="['/explore', { type: 'rate' }]" >更多...</a></p>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-lg-2 col-md-2" *ngFor="let rateMoreProduct of rateMoreProducts"><app-thumbnail [product]="rateMoreProduct"></app-thumbnail></div>
+    </div>
+  </div>
+
+</div>

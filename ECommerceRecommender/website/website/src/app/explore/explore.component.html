@@ -1,0 +1,7 @@
+<h3>{{ title }}</h3>
+<hr/>
+<div class="grid grid-pad">
+  <div class="row">
+    <div class="col-lg-2 col-md-2" *ngFor="let product of products" style="margin-bottom: 30px"><app-thumbnail [product]="product"></app-thumbnail></div>
+  </div>
+</div>

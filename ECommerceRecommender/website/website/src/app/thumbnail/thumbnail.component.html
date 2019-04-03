@@ -1,0 +1,19 @@
+<div class="thumbnail1">
+  <div class="top">
+    <div>
+      <div class="row" style="margin: 1px">
+        <div class="title">
+          <a routerLink="/products/{{ product.productId }}" routerLinkActive="active">{{ product.name }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row imgcontext" style="margin: -2px;">
+      <img src="{{ product.imageUrl }}">
+    </div>
+  </div>
+  <div class="row" style="margin: 0px;">
+    <div class="star">
+      <app-star [currentValue]="product.score" [productId]="product.productId"></app-star>
+    </div>
+  </div>
+</div>

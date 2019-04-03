@@ -1,0 +1,3 @@
+<ul class="rating">
+  <span *ngFor="let star of stars" (mouseleave)="leave()" (mouseover)="hover(star)" (click)="rate(star)" [class.ratingBefore]="isRatingBefore(star)" [class.ratingAfter]="isRatingAfter(star)" [class.scoreBefore]="isScoreBefore(star)" [class.scoreAfter]="isScoreAfter(star)" [class.noScoreBefore]="isNoScoreBefore(star)" [class.noScoreAfter]="isNoScoreAfter(star)"></span>
+</ul>

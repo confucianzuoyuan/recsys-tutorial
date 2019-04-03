@@ -1,0 +1,60 @@
+<div class="detail">
+
+  <div class="main row">
+    <div class="col-md-5">
+      <img src="{{ product.imageUrl }}" class="img-thumbnail">
+    </div>
+    <div class="col-md-7">
+      <h1 class="title">{{ product.name }}</h1>
+
+      <app-star *ngIf="product.score" [currentValue]="product.score" [productId]="product.productId"></app-star>
+
+      <div class="row"></div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <h4 class="small-title">平均评分</h4>
+          <p>{{ product.score.toFixed(2) }} 颗星</p>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-8">
+          <h4 class="small-title">商品类别</h4>
+          <p>{{ product.categories }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3><span class="glyphicon glyphicon-bullhorn" aria-hidden="true" style="font-size: 20px"></span> 大家的标签</h3>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-md-2" *ngFor="let tag of product.tags.split('|')" style="margin-bottom: 10px">
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <button type="button" class="btn btn-default">{{ tag }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>相似推荐</h3>
+  <p class="descri">尚硅谷电商推荐系统猜这些商品和 {{ product.name }} 相似, 推荐依据：基于物品的协同过滤</p>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-lg-2 col-md-2" *ngFor="let sameProduct of sameProducts"><app-thumbnail [product]="sameProduct"></app-thumbnail></div>
+    </div>
+  </div>
+
+  <h3>相似推荐</h3>
+  <p class="descri">尚硅谷电商推荐系统猜这些商品和 {{ product.name }} 相似, 推荐依据：基于内容相似度</p>
+  <div class="grid grid-pad">
+    <div class="row">
+      <div class="col-lg-2 col-md-2" *ngFor="let product of cbProducts"><app-thumbnail [product]="product"></app-thumbnail></div>
+    </div>
+  </div>
+
+</div>

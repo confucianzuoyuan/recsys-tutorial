@@ -1,0 +1,25 @@
+<assembly>
+    <id>release</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <fileSets>
+        <!--<fileSet>
+            <directory>images</directory>
+            <outputDirectory>./images/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>-->
+
+        <fileSet>
+            <directory>website/dist</directory>
+            <outputDirectory>./</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+</assembly>

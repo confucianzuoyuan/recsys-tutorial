@@ -1,0 +1,37 @@
+.bs-callout {
+  padding: 10px;
+  border: 1px solid #1b809e;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+footer{
+  position: fixed;
+  bottom: 0px;
+  color: azure;
+  height: 100px;
+  width: 100%;
+  font-family: Ubuntu,sans-serif;
+  font-size: 12px;
+  padding-top: 15px;
+  padding-bottom: 48px;
+  background-color: #4C4C4C !important;
+}
+
+.content{
+  margin-top: 50px;
+  margin-bottom: 110px;
+}
+
+
+.loginHead{
+  background-color: #F06624;
+  height:71px;
+  padding: 18px 0;
+  margin-bottom: 24px;
+}
+
+.header-panel{
+  background-color: #fff !important;
+  border-bottom: 1px solid #ddd !important;
+}

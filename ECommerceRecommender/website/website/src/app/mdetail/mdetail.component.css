@@ -1,0 +1,31 @@
+.main{
+  margin-bottom: 48px!important;
+  margin-top: 48px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 48px 0;
+}
+
+.bs-callout {
+  padding: 10px;
+  border: 1px solid #1b809e;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.youtag, .tags{
+  margin-bottom: 30px;
+}
+.title{
+  font-size: 45px;
+  color: rgba(0,0,0,.54);
+  font-weight: 500;
+  padding: 0;
+  margin-top: 0px;
+}
+
+.small-title{
+  font-family: Ubuntu,sans-serif;
+  color: #f06624;
+  font-size: 12px;
+}

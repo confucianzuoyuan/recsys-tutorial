@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [01/Apr/2019:09:47:15 +0800] "GET /rest/product/search?query=%E7%BA%A2%E6%A5%BC%E6%A2%A6 HTTP/1.1" 200 4853 http-bio-8088-exec-3 43
+0:0:0:0:0:0:0:1 - - [01/Apr/2019:09:47:19 +0800] "GET //rest/product/same/68980?num=6 HTTP/1.1" 404 999 http-bio-8088-exec-6 2
+0:0:0:0:0:0:0:1 - - [01/Apr/2019:09:47:19 +0800] "GET //rest/product/info/68980 HTTP/1.1" 200 300 http-bio-8088-exec-3 10
+0:0:0:0:0:0:0:1 - - [01/Apr/2019:09:49:57 +0800] "GET /rest/product/search?query=%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89 HTTP/1.1" 200 5321 http-bio-8088-exec-2 32
+0:0:0:0:0:0:0:1 - - [01/Apr/2019:09:50:13 +0800] "GET //rest/product/same/12510?num=6 HTTP/1.1" 404 999 http-bio-8088-exec-7 2
+0:0:0:0:0:0:0:1 - - [01/Apr/2019:09:50:13 +0800] "GET //rest/product/info/12510 HTTP/1.1" 200 251 http-bio-8088-exec-2 6
