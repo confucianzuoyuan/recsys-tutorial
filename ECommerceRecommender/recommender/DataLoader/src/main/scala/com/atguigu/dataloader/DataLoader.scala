@@ -30,11 +30,7 @@ object DataLoader {
     val config = Map(
       "spark.cores" -> "local[*]",
       "mongo.uri" -> "mongodb://localhost:27017/recommender",
-      "mongo.db" -> "recommender",
-      "es.httpHosts" -> "localhost:9200",
-      "es.transportHosts" -> "localhost:9300",
-      "es.index" -> "recommender",
-      "es.cluster.name" -> "elasticsearch"
+      "mongo.db" -> "recommender"
     )
 
 
@@ -66,7 +62,7 @@ object DataLoader {
   }
 
   // 将数据保存到MongoDB中的方法
-  def storeDataInMongoDB(productDF: DataFrame, ratingDF:DataFrame)(implicit mongoConfig: MongoConfig): Unit = {
+  def storeDataInMongoDB(productDF: DataFrame, ratingDF: DataFrame)(implicit mongoConfig: MongoConfig): Unit = {
 
     //新建一个到MongoDB的连接
     val mongoClient = MongoClient(MongoClientURI(mongoConfig.uri))

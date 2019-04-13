@@ -20,6 +20,8 @@ case class ProductRecs(productId: Int, recs:Seq[Recommendation])
 
 object ItemCFRecommender {
   // 同现相似度计算公式
+  // 比如：对A评分的人数100，对B评分的人数100，交集人数20
+  // 同现相似度：20 / 100 = 0.2
   def cooccurrence(numOfRatersForAAndB: Long, numOfRatersForA: Long, numOfRatersForB: Long): Double = {
     numOfRatersForAAndB / math.sqrt(numOfRatersForA * numOfRatersForB)
   }

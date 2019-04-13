@@ -23,7 +23,6 @@ object StatisticRecommender {
   val RATE_MORE_PRODUCTS = "RateMoreProducts"
   val RATE_MORE_RECENTLY_PRODUCTS = "RateMoreRecentlyProducts"
   val AVERAGE_PRODUCTS = "AverageProducts"
-  val TOP_PRODUCTS = "GenresTopProducts"
 
   // 入口方法
   def main(args: Array[String]): Unit = {
@@ -51,8 +50,8 @@ object StatisticRecommender {
     //数据加载进来
     val ratingDF = spark
       .read
-      .option("uri",mongoConfig.uri)
-      .option("collection",MONGODB_RATING_COLLECTION)
+      .option("uri", mongoConfig.uri)
+      .option("collection", MONGODB_RATING_COLLECTION)
       .format("com.mongodb.spark.sql")
       .load()
       .as[Rating]
@@ -60,8 +59,8 @@ object StatisticRecommender {
 
     val productDF = spark
       .read
-      .option("uri",mongoConfig.uri)
-      .option("collection",MONGODB_PRODUCT_COLLECTION)
+      .option("uri", mongoConfig.uri)
+      .option("collection", MONGODB_PRODUCT_COLLECTION)
       .format("com.mongodb.spark.sql")
       .load()
       .as[Product]
@@ -73,15 +72,15 @@ object StatisticRecommender {
 
     rateMoreProductsDF
       .write
-      .option("uri",mongoConfig.uri)
-      .option("collection",RATE_MORE_PRODUCTS)
+      .option("uri", mongoConfig.uri)
+      .option("collection", RATE_MORE_PRODUCTS)
       .mode("overwrite")
       .format("com.mongodb.spark.sql")
       .save()
 
     val simpleDateFormat = new SimpleDateFormat("yyyyMM")
 
-    spark.udf.register("changeDate",(x:Int) => simpleDateFormat.format(new Date(x * 1000L)).toInt)
+    spark.udf.register("changeDate", (x: Int) => simpleDateFormat.format(new Date(x * 1000L)).toInt)
 
     val ratingOfYearMonth = spark.sql("select productId, score, changeDate(timestamp) as yearmonth from ratings")
 
