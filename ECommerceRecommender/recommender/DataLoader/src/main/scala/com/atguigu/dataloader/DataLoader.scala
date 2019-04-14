@@ -11,8 +11,6 @@ case class Rating(userId: Int, productId: Int, score: Double, timestamp: Int)
 
 case class MongoConfig(uri: String, db: String)
 
-case class ESConfig(httpHosts: String, transportHosts: String, index: String, clustername: String)
-
 // 数据的主加载服务
 object DataLoader {
 
@@ -22,8 +20,6 @@ object DataLoader {
   val MONGODB_PRODUCT_COLLECTION = "Products"
   val MONGODB_RATING_COLLECTION = "Rating"
 
-  val ES_PRODUCT_INDEX = "Products"
-
   // 程序的入口
   def main(args: Array[String]): Unit = {
 
@@ -32,7 +28,6 @@ object DataLoader {
       "mongo.uri" -> "mongodb://localhost:27017/recommender",
       "mongo.db" -> "recommender"
     )
-
 
     val sparkConf = new SparkConf().setAppName("DataLoader").setMaster(config.get("spark.cores").get)
 
