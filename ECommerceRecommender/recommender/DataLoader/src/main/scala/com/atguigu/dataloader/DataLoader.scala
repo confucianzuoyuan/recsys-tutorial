@@ -11,8 +11,6 @@ case class Rating(userId: Int, productId: Int, score: Double, timestamp: Int)
 
 case class MongoConfig(uri: String, db: String)
 
-case class ESConfig(httpHosts: String, transportHosts: String, index: String, clustername: String)
-
 // 数据的主加载服务
 object DataLoader {
 
@@ -22,21 +20,14 @@ object DataLoader {
   val MONGODB_PRODUCT_COLLECTION = "Products"
   val MONGODB_RATING_COLLECTION = "Rating"
 
-  val ES_PRODUCT_INDEX = "Products"
-
   // 程序的入口
   def main(args: Array[String]): Unit = {
 
     val config = Map(
       "spark.cores" -> "local[*]",
       "mongo.uri" -> "mongodb://localhost:27017/recommender",
-      "mongo.db" -> "recommender",
-      "es.httpHosts" -> "localhost:9200",
-      "es.transportHosts" -> "localhost:9300",
-      "es.index" -> "recommender",
-      "es.cluster.name" -> "elasticsearch"
+      "mongo.db" -> "recommender"
     )
-
 
     val sparkConf = new SparkConf().setAppName("DataLoader").setMaster(config.get("spark.cores").get)
 
@@ -66,7 +57,7 @@ object DataLoader {
   }
 
   // 将数据保存到MongoDB中的方法
-  def storeDataInMongoDB(productDF: DataFrame, ratingDF:DataFrame)(implicit mongoConfig: MongoConfig): Unit = {
+  def storeDataInMongoDB(productDF: DataFrame, ratingDF: DataFrame)(implicit mongoConfig: MongoConfig): Unit = {
 
     //新建一个到MongoDB的连接
     val mongoClient = MongoClient(MongoClientURI(mongoConfig.uri))
