@@ -76,18 +76,20 @@ object OfflineRecommender {
 
     //创建训练数据集
 
-    val trainData = ratingRDD.map(x => Rating(x._1,x._2,x._3))
+    val trainData = ratingRDD.map(x => Rating(x._1, x._2, x._3))
 
     // r: M x N
     // u: M x K
     // i: K x N
-    val (rank,iterations,lambda) = (50, 5, 0.01)
+    // 9000 x 100
+    // rank参数就是K参数, iterations是迭代次数, lambda是正则化系数
+    val (rank, iterations, lambda) = (50, 5, 0.01)
     //训练ALS模型
-    val model = ALS.train(trainData,rank,iterations,lambda)
+    val model = ALS.train(trainData, rank, iterations, lambda)
 
     //计算用户推荐矩阵
 
-    //需要构造一个usersProducts  RDD[(Int,Int)]
+    // 需要构造一个usersProducts  RDD[(Int,Int)]
     val userProducts = userRDD.cartesian(productRDD)
 
     val preRatings = model.predict(userProducts)
@@ -97,7 +99,7 @@ object OfflineRecommender {
       .map(rating => (rating.user, (rating.product, rating.rating)))
       .groupByKey()
       .map{
-        case (userId,recs) => UserRecs(userId, recs.toList.sortWith(_._2 > _._2).take(USER_MAX_RECOMMENDATION).map(x => Recommendation(x._1,x._2)))
+        case (userId, recs) => UserRecs(userId, recs.toList.sortWith(_._2 > _._2).take(USER_MAX_RECOMMENDATION).map(x => Recommendation(x._1, x._2)))
       }.toDF()
 
     userRecs.write
@@ -112,10 +114,10 @@ object OfflineRecommender {
     }
 
     val productRecs = productFeatures.cartesian(productFeatures)
-      .filter{case (a,b) => a._1 != b._1}
-      .map{case (a,b) =>
-        val simScore = this.consinSim(a._2,b._2)
-        (a._1,(b._1,simScore))
+      .filter{case (a, b) => a._1 != b._1}
+      .map{case (a, b) =>
+        val simScore = this.consinSim(a._2, b._2)
+        (a._1, (b._1, simScore))
       }.filter(_._2._2 > 0.6)
       .groupByKey()
       .map{case (productId, items) =>
@@ -133,7 +135,7 @@ object OfflineRecommender {
     spark.close()
   }
 
-  def consinSim(product1: DoubleMatrix, product2: DoubleMatrix) : Double ={
+  def consinSim(product1: DoubleMatrix, product2: DoubleMatrix) : Double = {
     product1.dot(product2) / ( product1.norm2()  * product2.norm2() )
   }
 
