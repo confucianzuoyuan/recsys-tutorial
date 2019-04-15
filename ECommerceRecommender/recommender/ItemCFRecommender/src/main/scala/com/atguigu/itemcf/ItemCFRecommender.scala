@@ -72,15 +72,26 @@ object ItemCFRecommender {
     val numRatersPerProduct = ratingDF.groupBy("productId").count().alias("nor")
 
     // 在原记录基础上加上product的打分者的数量
+    // uid1 | pid1 | nor
+    // uid2 | pid1 | nor
     val ratingsWithSize = ratingDF.join(numRatersPerProduct, "productId")
 
     // 执行内联操作
+    // select * from ratingsWithSize as r1 inner join ratingsWithSize as r2 on r1.userId=r2.userId
     val joinedDF = ratingsWithSize.join(ratingsWithSize, "userId")
       .toDF("userId", "product1", "rating1", "nor1", "product2", "rating2", "nor2")
 
     joinedDF
       .selectExpr("userId", "product1", "nor1", "product2", "nor2")
       .createOrReplaceTempView("joined")
+
+    // (uid1, pid1)
+    // (uid1, pid2)
+    // uid1 | pid1 | nor1Ofpid1 | pid1 | nor1Ofpid1
+    // uid1 | pid1 | nor1Ofpid1 | pid2 | nor1Ofpid2
+    // uid1 | pid2 | nor1Ofpid2 | pid1 | nor1Ofpid1
+    // uid1 | pid2 | nor1Ofpid2 | pid2 | nor1Ofpid2
+    // uid2 | pid1 | nor1Ofpid1 | pid2 | nor1Ofpid2
 
     //  计算必要的中间数据，注意此处有WHERE限定，只计算了一半的数据量
     val sparseMatrix = spark.sql(
@@ -95,6 +106,8 @@ object ItemCFRecommender {
       """.stripMargin)
       .cache()
 
+    // pid1 | pid2 | numofpid1andpid2 | nor1Ofpid1 | nor1Ofpid2
+
     //  计算物品相似度
     var sim = sparseMatrix.map(row => {
       val size = row.getAs[Long](2)
@@ -104,6 +117,10 @@ object ItemCFRecommender {
       val cooc = cooccurrence(size, numRaters1, numRaters2)
       (row.getInt(0), row.getInt(1), cooc)
     }).toDF("productId_01", "productId_02", "cooc")
+
+    // pid1 | pid2 | coocofpid1andpid2
+    // pid1 | pid3 | coocofpid1andpid3
+    // (pid1, pid2, cooc) => (pid1, (pid2, cooc)) => (pid1, [(pid2, cooc), (pid3, cooc)])
 
     val simDF = sim
       .map{
@@ -119,7 +136,7 @@ object ItemCFRecommender {
       )
       .groupByKey()
       .map {
-        case (productId, items) => ProductRecs(productId, items.toList.filter(x => x._1 != productId).sortWith(_._2 > _._2).map(x => Recommendation(x._1,x._2)).take(5))
+        case (productId, items) => ProductRecs(productId, items.toList.filter(x => x._1 != productId).sortWith(_._2 > _._2).map(x => Recommendation(x._1, x._2)).take(5))
       }
       .toDF()
 

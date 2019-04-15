@@ -96,6 +96,7 @@ object OfflineRecommender {
 
     val userRecs = preRatings
       .filter(_.rating > 0)
+      // (rating.user, rating.product, rating.rating) => (rating.user, (rating.product, rating.rating))
       .map(rating => (rating.user, (rating.product, rating.rating)))
       .groupByKey()
       .map{
@@ -109,10 +110,14 @@ object OfflineRecommender {
       .format("com.mongodb.spark.sql")
       .save()
 
+    // productFeatures为物品的隐特征矩阵
+    // 每一行：(pid, pid_features)
     val productFeatures = model.productFeatures.map{case (productId, features) =>
       (productId, new DoubleMatrix(features))
     }
 
+    // pid1: vector1; pid2: vector2
+    // (a: (pid1, vector1), b: (pid2, vector2)) => (pid1, [(pid2, simScore), [(pid3, simScore)]])
     val productRecs = productFeatures.cartesian(productFeatures)
       .filter{case (a, b) => a._1 != b._1}
       .map{case (a, b) =>
