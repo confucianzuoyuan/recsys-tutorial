@@ -6,7 +6,7 @@ import org.apache.spark.sql.SparkSession
 //  物品信息
 case class Product(productId: Int, name: String, categories: String, imageUrl: String, tags: String)
 
-case class MongoConfig(uri:String, db:String)
+case class MongoConfig(uri: String, db: String)
 
 //  用户-物品-评分
 case class Rating(userId: Int, productId: Int, score: Double, timestamp: Int)
@@ -14,9 +14,10 @@ case class Rating(userId: Int, productId: Int, score: Double, timestamp: Int)
 //  用户信息
 case class User(userId: Int)
 
+// rid为推荐商品的id, r为推荐的优先级
 case class Recommendation(rid: Int, r: Double)
 
-case class ProductRecs(productId: Int, recs:Seq[Recommendation])
+case class ProductRecs(productId: Int, recs: Seq[Recommendation])
 
 object ItemCFRecommender {
   // 同现相似度计算公式
