@@ -12,9 +12,6 @@ case class Product(productId: Int, name: String, categories: String, imageUrl: S
 //推荐
 case class Recommendation(rid: Int, r: Double)
 
-// 用户的推荐
-case class UserRecs(userId: Int, recs: Seq[Recommendation])
-
 //商品的相似度
 case class ProductRecs(productId: Int, recs: Seq[Recommendation])
 
