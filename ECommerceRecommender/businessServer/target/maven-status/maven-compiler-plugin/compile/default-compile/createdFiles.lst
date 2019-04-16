@@ -1,6 +1,5 @@
 com/atguigu/business/model/request/ContentBasedRecommendationRequest.class
 com/atguigu/business/model/request/RateMoreRecommendationRequest.class
-com/atguigu/business/service/RecommenderService$2.class
 com/atguigu/business/utils/Configure.class
 com/atguigu/business/model/request/RegisterUserRequest.class
 com/atguigu/business/model/request/ItemCFRecommendationRequest.class
@@ -11,7 +10,6 @@ com/atguigu/business/model/request/HotRecommendationRequest.class
 com/atguigu/business/model/request/ProductRatingRequest.class
 com/atguigu/business/service/RatingService.class
 com/atguigu/business/model/recom/Recommendation.class
-com/atguigu/business/service/RecommenderService$1.class
 com/atguigu/business/Application.class
 com/atguigu/business/service/UserService.class
 com/atguigu/business/rest/UserRestApi.class
