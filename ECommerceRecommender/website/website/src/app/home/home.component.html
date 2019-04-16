@@ -3,15 +3,15 @@
   <p class="descri">尚硅谷电商推荐系统猜你喜欢 <a [routerLink]="['/explore', { type: 'guess' }]" >更多...</a></p>
   <div class="grid grid-pad">
     <div class="row">
-      <div class="col-lg-2 col-md-2" *ngFor="let guessProduct of guessProducts"><app-thumbnail [product]="guessProduct"></app-thumbnail></div>
+      <div class="col-lg-2 col-md-2" *ngFor="let streamProduct of streamProducts"><app-thumbnail [product]="streamProduct"></app-thumbnail></div>
     </div>
   </div>
 
   <h3><span class="glyphicon glyphicon-heart" aria-hidden="true" style="font-size: 20px;"></span> 离线推荐</h3>
-  <p class="descri">最新添加的商品 <a [routerLink]="['/explore', { type: 'wish' }]" >更多...</a></p>
+  <p class="descri">最新添加的商品 <a [routerLink]="['/explore', { type: 'offline' }]" >更多...</a></p>
   <div class="grid grid-pad">
     <div class="row">
-      <div class="col-lg-2 col-md-2" *ngFor="let wishProduct of wishProducts"><app-thumbnail [product]="wishProduct"></app-thumbnail></div>
+      <div class="col-lg-2 col-md-2" *ngFor="let offlineProduct of offlineProducts"><app-thumbnail [product]="offlineProduct"></app-thumbnail></div>
     </div>
   </div>
 

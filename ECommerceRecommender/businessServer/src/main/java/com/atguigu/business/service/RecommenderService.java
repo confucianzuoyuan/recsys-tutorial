@@ -29,7 +29,6 @@ public class RecommenderService {
         for (Document document : documents) {
             recommendations.add(new Recommendation(document.getInteger("productId"), 0D));
         }
-        System.out.println(recommendations);
         return recommendations;
     }
 
@@ -50,7 +49,6 @@ public class RecommenderService {
         MongoCollection<Document> itemCFProductsCollection = mongoClient.getDatabase(Constant.MONGODB_DATABASE).getCollection(Constant.MONGODB_ITEMCF_COLLECTION);
         Document document = itemCFProductsCollection.find(new Document("productId", request.getId())).first();
 
-        System.out.println(document.get("recs"));
         List<Recommendation> recommendations = new ArrayList<>();
         ArrayList<Document> recs = document.get("recs", ArrayList.class);
 
@@ -65,7 +63,6 @@ public class RecommenderService {
         MongoCollection<Document> contentBasedProductsCollection = mongoClient.getDatabase(Constant.MONGODB_DATABASE).getCollection(Constant.MONGODB_CONTENTBASED_COLLECTION);
         Document document = contentBasedProductsCollection.find(new Document("productId", request.getId())).first();
 
-        System.out.println(document.get("recs"));
         List<Recommendation> recommendations = new ArrayList<>();
         ArrayList<Document> recs = document.get("recs", ArrayList.class);
 
@@ -75,4 +72,36 @@ public class RecommenderService {
 
         return recommendations;
     }
+
+    // user recs
+    public List<Recommendation> getCollaborativeFilteringRecommendations(UserRecommendationRequest request) {
+        MongoCollection<Document> userRecsCollection = mongoClient.getDatabase(Constant.MONGODB_DATABASE).getCollection(Constant.MONGODB_USER_RECS_COLLECTION);
+        Document document = userRecsCollection.find(new Document("userId", request.getUserId())).first();
+
+        List<Recommendation> recommendations = new ArrayList<>();
+        ArrayList<Document> recs = document.get("recs", ArrayList.class);
+
+        for (Document recDoc : recs) {
+            recommendations.add(new Recommendation(recDoc.getInteger("rid"), recDoc.getDouble("r")));
+        }
+
+        return recommendations;
+    }
+
+    // user stream recs
+    public List<Recommendation> getStreamRecommendations(UserRecommendationRequest request) {
+        MongoCollection<Document> userRecsCollection = mongoClient.getDatabase(Constant.MONGODB_DATABASE).getCollection(Constant.MONGODB_STREAM_RECS_COLLECTION);
+        Document document = userRecsCollection.find(new Document("userId", request.getUserId())).first();
+
+        List<Recommendation> recommendations = new ArrayList<>();
+        ArrayList<Document> recs = document.get("recs", ArrayList.class);
+
+        for (Document recDoc : recs) {
+            recommendations.add(new Recommendation(recDoc.getInteger("rid"), recDoc.getDouble("r")));
+        }
+
+        return recommendations;
+    }
+
+
 }

@@ -12,27 +12,27 @@ import {constant} from "../model/constant";
 })
 export class HomeComponent implements OnInit {
 
-  guessProducts: Product[] = [];
+  streamProducts: Product[] = [];
   hotProducts: Product[] = [];
   rateMoreProducts: Product[] = [];
-  wishProducts: Product[] = [];
+  offlineProducts: Product[] = [];
 
   constructor(private httpService : HttpClient,private loginService:LoginService, private router:Router) {}
 
   ngOnInit(): void {
-    this.getGuessProducts();
+    this.getStreamProducts();
     this.getHotProducts();
     this.getRateMoreProducts();
-    this.getWishProducts();
+    this.getOfflineProducts();
   }
 
-  getGuessProducts(): void {
+  getStreamProducts(): void {
     this.httpService
-      .get(constant.BUSSINESS_SERVER_URL+'rest/product/guess?num=6&username='+this.loginService.user.username)
+      .get(constant.BUSSINESS_SERVER_URL+'rest/product/stream?num=6&username='+this.loginService.user.username)
       .subscribe(
         data => {
           if(data['success'] == true){
-            this.guessProducts = data['products'];
+            this.streamProducts = data['products'];
           }
         },
         err => {
@@ -71,13 +71,13 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  getWishProducts(): void {
+  getOfflineProducts(): void {
     this.httpService
-      .get(constant.BUSSINESS_SERVER_URL+'rest/product/wish?num=6&username='+this.loginService.user.username)
+      .get(constant.BUSSINESS_SERVER_URL+'rest/product/offline?num=6&username='+this.loginService.user.username)
       .subscribe(
         data => {
           if(data['success'] == true){
-            this.wishProducts = data['products'];
+            this.offlineProducts = data['products'];
           }
         },
         err => {
