@@ -1,9 +1,2 @@
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:13:47 +0800] "GET / HTTP/1.1" 404 951 http-bio-8088-exec-1 89
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:13:48 +0800] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8088-exec-2 1
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:15:19 +0800] "GET //rest/users/register?username=zy@123.com&password=1234 HTTP/1.1" 404 991 http-bio-8088-exec-6 1
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:15:29 +0800] "GET //rest/users/register?username=zuoyuan@123.com&password=1234 HTTP/1.1" 404 991 http-bio-8088-exec-7 1
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:15:55 +0800] "GET //rest/users/register?username=zuoyuan@123.com&password=1234 HTTP/1.1" 404 991 http-bio-8088-exec-8 1
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:16:56 +0800] "GET /rest/users/login?username=zuoyuantc@126.com&password=12345678 HTTP/1.1" 404 983 http-bio-8088-exec-1 1
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:17:10 +0800] "GET / HTTP/1.1" 404 951 http-bio-8088-exec-3 2
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:17:14 +0800] "GET /rest/product/itemcf/492579 HTTP/1.1" 404 1003 http-bio-8088-exec-3 1
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:16:17:18 +0800] "GET /rest/product/ HTTP/1.1" 404 977 http-bio-8088-exec-3 1
+0:0:0:0:0:0:0:1 - - [16/Apr/2019:23:19:33 +0800] "GET /rest/product/hot HTTP/1.1" 400 1054 http-bio-8088-exec-1 64
+0:0:0:0:0:0:0:1 - - [16/Apr/2019:23:19:42 +0800] "GET /rest/product/hot?num=10 HTTP/1.1" 200 3435 http-bio-8088-exec-2 235
