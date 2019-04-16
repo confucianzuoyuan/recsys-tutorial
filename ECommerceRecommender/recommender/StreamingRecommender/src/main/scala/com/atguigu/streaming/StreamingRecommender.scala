@@ -161,7 +161,7 @@ object StreamingRecommender {
     }
 
     score.groupBy(_._1).map{case (productId, sims) =>
-      (productId,sims.map(_._2).sum / sims.length + log(increMap.getOrDefault(productId, 1)) - log(decreMap.getOrDefault(productId, 1)))
+      (productId, sims.map(_._2).sum / sims.length + log(increMap.getOrDefault(productId, 1)) - log(decreMap.getOrDefault(productId, 1)))
     }.toArray
 
   }
@@ -172,6 +172,8 @@ object StreamingRecommender {
   }
 
   def getProductsSimScore(simProducts: scala.collection.Map[Int,scala.collection.immutable.Map[Int,Double]], userRatingProduct: Int, topSimProduct: Int): Double = {
+    // topSimProduct是候选商品q
+    // userRatingProduct是最近评分过的一个商品R_r
     simProducts.get(topSimProduct) match {
       case Some(sim) => sim.get(userRatingProduct) match {
         case Some(score) => score
