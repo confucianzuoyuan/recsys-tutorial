@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b774b962-5335-4036-b2dc-63d1b05e6ed3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/businessServer/src/main/java/com/atguigu/business/rest/ProductRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/businessServer/src/main/java/com/atguigu/business/rest/ProductRestApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/businessServer/src/main/java/com/atguigu/business/service/RecommenderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/businessServer/src/main/java/com/atguigu/business/service/RecommenderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/website/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/website/src/app/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/website/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/website/website/src/app/home/home.component.ts" afterDir="false" />
-    </list>
+    <list default="true" id="b774b962-5335-4036-b2dc-63d1b05e6ed3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/recommender/target/" />
@@ -117,6 +111,7 @@
     <session id="-981067817">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -218,8 +213,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/website/website/src/app/home/home.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="114" selection-start-line="5" selection-start-column="114" selection-end-line="5" selection-end-column="114" />
+            <state relative-caret-position="152">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -661,12 +656,12 @@
       <workItem from="1553651420159" duration="29969000" />
       <workItem from="1553846486173" duration="30420000" />
       <workItem from="1554195308298" duration="20191000" />
-      <workItem from="1555387473205" duration="1419000" />
+      <workItem from="1555387473205" duration="1549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81999000" />
+    <option name="totallyTimeSpent" value="82129000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="947" extended-state="0" />
@@ -1056,8 +1051,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/website/website/src/app/home/home.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="114" selection-start-line="5" selection-start-column="114" selection-end-line="5" selection-end-column="114" />
+        <state relative-caret-position="152">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
