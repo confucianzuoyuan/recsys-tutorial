@@ -111,6 +111,7 @@ public class ProductRestApi {
         return model;
     }
 
+    // 评分操作
     @RequestMapping(value = "/rate/{id}", produces = "application/json", method = RequestMethod.GET )
     @ResponseBody
     public Model rateToProduct(@PathVariable("id")int id, @RequestParam("score")Double score, @RequestParam("username")String username, Model model) {
@@ -124,6 +125,28 @@ public class ProductRestApi {
         }
         model.addAttribute("success",true);
         model.addAttribute("message"," 已完成评分！");
+        return model;
+    }
+
+    // 离线推荐
+    @RequestMapping(value = "/offline", produces = "application/json", method = RequestMethod.GET )
+    @ResponseBody
+    public Model getOfflineProducts(@RequestParam("username")String username,@RequestParam("num")int num, Model model) {
+        User user = userService.findByUsername(username);
+        List<Recommendation> recommendations = recommenderService.getCollaborativeFilteringRecommendations(new UserRecommendationRequest(user.getUserId(), num));
+        model.addAttribute("success",true);
+        model.addAttribute("products", productService.getRecommendProducts(recommendations));
+        return model;
+    }
+
+    // 实时推荐
+    @RequestMapping(value = "/stream", produces = "application/json", method = RequestMethod.GET )
+    @ResponseBody
+    public Model getGuessMovies(@RequestParam("username")String username,@RequestParam("num")int num, Model model) {
+        User user = userService.findByUsername(username);
+        List<Recommendation> recommendations = recommenderService.getStreamRecommendations(new UserRecommendationRequest(user.getUserId(), num));
+        model.addAttribute("success",true);
+        model.addAttribute("movies", productService.getRecommendProducts(recommendations));
         return model;
     }
 }
