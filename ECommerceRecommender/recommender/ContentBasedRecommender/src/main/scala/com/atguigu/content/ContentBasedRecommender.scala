@@ -60,6 +60,8 @@ object ContentBasedRecommender {
     val tagsData = spark.createDataFrame(productSeq).toDF("productId", "name", "tags")
 
     // 实例化一个分词器，默认按空格分
+    // doc: 不好看(10)|送货速度快(3)|很好(100)|质量很好(1)  -> 商品详情
+    // tf: 不好看的tf值: 10 / 114
     val tokenizer = new Tokenizer().setInputCol("tags").setOutputCol("words")
 
     // 用分词器做转换，生成列“words”，返回一个dataframe，增加一列words
@@ -86,24 +88,18 @@ object ContentBasedRecommender {
 
     val productFeatures = rescaledData.map{
       case row => {
-        if (row.getAs[Int]("productId") == 160597 || row.getAs[Int]("productId") == 8195) {
-          println(row)
-        }
         (row.getAs[Int]("productId"), row.getAs[SparseVector]("features").toArray)
       }
     }
     .rdd
     .map(x => {
-      (x._1, new DoubleMatrix(x._2) )
+      (x._1, new DoubleMatrix(x._2))
     })
 
     val productRecs = productFeatures.cartesian(productFeatures)
       .filter{case (a, b) => a._1 != b._1}
       .map {
         case (a, b) => {
-          if (a._1==160597 && b._1==8195) {
-            println(a._1, a._2, b._1, b._2)
-          }
           val simScore = this.consinSim(a._2, b._2)
           (a._1, (b._1, simScore))
         }
