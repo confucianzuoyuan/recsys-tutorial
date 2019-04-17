@@ -111,7 +111,6 @@ public class ProductRestApi {
         return model;
     }
 
-    // 评分操作
     @RequestMapping(value = "/rate/{id}", produces = "application/json", method = RequestMethod.GET )
     @ResponseBody
     public Model rateToProduct(@PathVariable("id")int id, @RequestParam("score")Double score, @RequestParam("username")String username, Model model) {
@@ -142,11 +141,11 @@ public class ProductRestApi {
     // 实时推荐
     @RequestMapping(value = "/stream", produces = "application/json", method = RequestMethod.GET )
     @ResponseBody
-    public Model getGuessMovies(@RequestParam("username")String username,@RequestParam("num")int num, Model model) {
+    public Model getStreamProducts(@RequestParam("username")String username,@RequestParam("num")int num, Model model) {
         User user = userService.findByUsername(username);
         List<Recommendation> recommendations = recommenderService.getStreamRecommendations(new UserRecommendationRequest(user.getUserId(), num));
         model.addAttribute("success",true);
-        model.addAttribute("movies", productService.getRecommendProducts(recommendations));
+        model.addAttribute("products", productService.getRecommendProducts(recommendations));
         return model;
     }
 }

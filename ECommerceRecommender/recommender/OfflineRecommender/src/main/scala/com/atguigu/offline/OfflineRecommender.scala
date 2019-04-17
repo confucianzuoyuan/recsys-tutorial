@@ -123,7 +123,7 @@ object OfflineRecommender {
       .map{case (a, b) =>
         val simScore = this.consinSim(a._2, b._2)
         (a._1, (b._1, simScore))
-      }.filter(_._2._2 > 0.6)
+      }.filter(_._2._2 > 0)
       .groupByKey()
       .map{case (productId, items) =>
         ProductRecs(productId, items.toList.map(x => Recommendation(x._1,x._2)))

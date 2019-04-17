@@ -36,9 +36,6 @@ public class Configure {
             properties.load(new FileInputStream(resource.getFile()));
             this.mongoHost = properties.getProperty("mongo.host");
             this.mongoPort = Integer.parseInt(properties.getProperty("mongo.port"));
-            this.esClusterName = properties.getProperty("es.cluster.name");
-            this.esHost = properties.getProperty("es.host");
-            this.esPort = Integer.parseInt(properties.getProperty("es.port"));
             this.redisHost = properties.getProperty("redis.host");
         } catch (FileNotFoundException e) {
             e.printStackTrace();

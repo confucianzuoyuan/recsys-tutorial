@@ -1,0 +1,10 @@
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:08:56:45 +0800] "GET //rest/product/info/160597 HTTP/1.1" 200 386 http-bio-8088-exec-2 43
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:08:56:45 +0800] "GET //rest/product/itemcf/160597 HTTP/1.1" 200 1592 http-bio-8088-exec-1 44
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:08:56:45 +0800] "GET //rest/product/contentbased/160597 HTTP/1.1" 200 1558 http-bio-8088-exec-3 43
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:00:48 +0800] "GET /rest/product/guess?num=6&username=zuoyuantc@126.com HTTP/1.1" 404 987 http-bio-8088-exec-5 5
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:00:48 +0800] "GET /rest/product/wish?num=6&username=zuoyuantc@126.com HTTP/1.1" 404 985 http-bio-8088-exec-7 3
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:00:48 +0800] "GET /rest/product/rate?num=6&username=zuoyuantc@126.com HTTP/1.1" 200 2063 http-bio-8088-exec-6 16
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:00:48 +0800] "GET /rest/product/hot?num=6&username=zuoyuantc@126.com HTTP/1.1" 200 1927 http-bio-8088-exec-8 45
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:42:21 +0800] "GET //rest/product/info/186429 HTTP/1.1" 200 353 http-bio-8088-exec-9 8
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:42:21 +0800] "GET //rest/product/itemcf/186429 HTTP/1.1" 200 1725 http-bio-8088-exec-1 13
+0:0:0:0:0:0:0:1 - - [08/Apr/2019:09:42:21 +0800] "GET //rest/product/contentbased/186429 HTTP/1.1" 200 1641 http-bio-8088-exec-4 15

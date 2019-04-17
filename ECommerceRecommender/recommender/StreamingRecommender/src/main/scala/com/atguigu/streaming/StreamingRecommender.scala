@@ -84,6 +84,8 @@ object StreamingRecommender {
         (recs.productId, recs.recs.map(x => (x.rid, x.r)).toMap)
       }.collectAsMap()
 
+    simProductsMatrix.foreach(println)
+
     val simProductsMatrixBroadCast = sc.broadcast(simProductsMatrix)
 
     //创建到Kafka的连接
@@ -150,7 +152,7 @@ object StreamingRecommender {
 
     for (topSimProduct <- topSimProducts; userRecentlyRating <- userRecentlyRatings) {
       val simScore = getProductsSimScore(simProducts, userRecentlyRating._1, topSimProduct)
-      if(simScore > 0.6) {
+      if(simScore > 0) {
         score += ((topSimProduct, simScore * userRecentlyRating._2))
         if(userRecentlyRating._2 > 3) {
           increMap(topSimProduct) = increMap.getOrDefault(topSimProduct, 0) + 1

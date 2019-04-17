@@ -56,7 +56,6 @@ public class RatingService {
         }
     }
 
-    // "userId:1": ["100:5", "200:4.5"]
     private void updateRedis(Rating rating) {
         if (jedis.exists("userId:" + rating.getUserId()) && jedis.llen("userId:" + rating.getUserId()) >= Constant.REDIS_PRODUCT_RATING_QUEUE_SIZE) {
             jedis.rpop("userId:" + rating.getUserId());
