@@ -1219,3 +1219,7 @@
 2019-04-17 13:56:36,617   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
 2019-04-17 13:57:06,617   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
 2019-04-17 13:57:06,623   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 13:57:36,701   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 13:57:36,702   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 13:58:06,795   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 13:58:06,801   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
