@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           if(data['success'] == true){
-            this.streamProducts = data['products'];
+            this.streamProducts = data['products'].slice(0, 6);
           }
         },
         err => {
@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           if(data['success'] == true){
-            this.offlineProducts = data['products'];
+            this.offlineProducts = data['products'].slice(0, 6);
           }
         },
         err => {

@@ -100,7 +100,7 @@ public class RecommenderService {
         ArrayList<Document> recs = document.get("recs", ArrayList.class);
 
         for (Document recDoc : recs) {
-            recommendations.add(new Recommendation(recDoc.getInteger("rid"), recDoc.getDouble("r")));
+            recommendations.add(new Recommendation(recDoc.getInteger("productId"), recDoc.getDouble("score")));
         }
 
         return recommendations;

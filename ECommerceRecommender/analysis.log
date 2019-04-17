@@ -1,0 +1,644 @@
+2019-04-17 08:59:36,944   INFO --- [main]  org.apache.kafka.streams.StreamsConfig(line:180) : StreamsConfig values: 
+	application.id = logFilter
+	application.server = 
+	bootstrap.servers = [localhost:9092]
+	buffered.records.per.partition = 1000
+	cache.max.bytes.buffering = 10485760
+	client.id = 
+	commit.interval.ms = 30000
+	connections.max.idle.ms = 540000
+	key.serde = class org.apache.kafka.common.serialization.Serdes$ByteArraySerde
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	num.standby.replicas = 0
+	num.stream.threads = 1
+	partition.grouper = class org.apache.kafka.streams.processor.DefaultPartitionGrouper
+	poll.ms = 100
+	receive.buffer.bytes = 32768
+	reconnect.backoff.ms = 50
+	replication.factor = 1
+	request.timeout.ms = 40000
+	retry.backoff.ms = 100
+	rocksdb.config.setter = null
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	state.cleanup.delay.ms = 60000
+	state.dir = /tmp/kafka-streams
+	timestamp.extractor = class org.apache.kafka.streams.processor.FailOnInvalidTimestamp
+	value.serde = class org.apache.kafka.common.serialization.Serdes$ByteArraySerde
+	windowstore.changelog.additional.retention.ms = 86400000
+	zookeeper.connect = localhost:2181
+
+2019-04-17 08:59:37,105   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:304) : stream-thread [StreamThread-1] Creating producer client
+2019-04-17 08:59:37,113   INFO --- [main]  org.apache.kafka.clients.producer.ProducerConfig(line:180) : ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	block.on.buffer.full = false
+	bootstrap.servers = [localhost:9092]
+	buffer.memory = 33554432
+	client.id = logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0-StreamThread-1-producer
+	compression.type = none
+	connections.max.idle.ms = 540000
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+	linger.ms = 100
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.fetch.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 10
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	timeout.ms = 30000
+	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+2019-04-17 08:59:37,153   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:83) : Kafka version : 0.10.2.1
+2019-04-17 08:59:37,153   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:84) : Kafka commitId : e89bffd6b2eff799
+2019-04-17 08:59:37,154   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:306) : stream-thread [StreamThread-1] Creating consumer client
+2019-04-17 08:59:37,160   INFO --- [main]  org.apache.kafka.clients.consumer.ConsumerConfig(line:180) : ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0-StreamThread-1-consumer
+	connections.max.idle.ms = 540000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = logFilter
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 2147483647
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [org.apache.kafka.streams.processor.internals.StreamPartitionAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2019-04-17 08:59:37,196   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:83) : Kafka version : 0.10.2.1
+2019-04-17 08:59:37,196   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:84) : Kafka commitId : e89bffd6b2eff799
+2019-04-17 08:59:37,197   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:317) : stream-thread [StreamThread-1] Creating restore consumer client
+2019-04-17 08:59:37,197   INFO --- [main]  org.apache.kafka.clients.consumer.ConsumerConfig(line:180) : ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0-StreamThread-1-restore-consumer
+	connections.max.idle.ms = 540000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = 
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 2147483647
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2019-04-17 08:59:37,201   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:83) : Kafka version : 0.10.2.1
+2019-04-17 08:59:37,201   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:84) : Kafka commitId : e89bffd6b2eff799
+2019-04-17 08:59:37,203   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from NOT_RUNNING to RUNNING.
+2019-04-17 08:59:37,387   INFO --- [main]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0] State transition from CREATED to RUNNING.
+2019-04-17 08:59:37,388   INFO --- [main]  org.apache.kafka.streams.KafkaStreams(line:436) : stream-client [logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0] Started Kafka Stream process
+2019-04-17 08:59:37,388   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:358) : stream-thread [StreamThread-1] Starting
+2019-04-17 08:59:37,402   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.AbstractCoordinator(line:586) : Discovered coordinator 192.168.12.53:9092 (id: 2147483647 rack: null) for group logFilter.
+2019-04-17 08:59:37,404   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator(line:397) : Revoking previously assigned partitions [] for group logFilter
+2019-04-17 08:59:37,404   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:248) : stream-thread [StreamThread-1] at state RUNNING: partitions [] revoked at the beginning of consumer rebalance.
+2019-04-17 08:59:37,404   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from RUNNING to PARTITIONS_REVOKED.
+2019-04-17 08:59:37,405   INFO --- [StreamThread-1]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0] State transition from RUNNING to REBALANCING.
+2019-04-17 08:59:37,406   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:1042) : stream-thread [StreamThread-1] Updating suspended tasks to contain active tasks []
+2019-04-17 08:59:37,406   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:1049) : stream-thread [StreamThread-1] Removing all active tasks []
+2019-04-17 08:59:37,406   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:1064) : stream-thread [StreamThread-1] Removing all standby tasks []
+2019-04-17 08:59:37,406   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.AbstractCoordinator(line:420) : (Re-)joining group logFilter
+2019-04-17 08:59:37,415   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:300) : stream-thread [StreamThread-1] Constructed client metadata {918c6b20-7b74-4a53-a443-fcb2c467bfc0=ClientMetadata{hostInfo=null, consumers=[logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0-StreamThread-1-consumer-4d800568-b71c-414a-b329-a34da6c03c1d], state=[activeTasks: ([]) assignedTasks: ([]) prevActiveTasks: ([]) prevAssignedTasks: ([]) capacity: 1.0 cost: 0.0]}} from the member subscriptions.
+2019-04-17 08:59:37,416   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:640) : stream-thread [StreamThread-1] Completed validating internal topics in partition assignor
+2019-04-17 08:59:37,417   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:640) : stream-thread [StreamThread-1] Completed validating internal topics in partition assignor
+2019-04-17 08:59:37,418   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:476) : stream-thread [StreamThread-1] Assigned tasks to clients as {918c6b20-7b74-4a53-a443-fcb2c467bfc0=[activeTasks: ([0_0]) assignedTasks: ([0_0]) prevActiveTasks: ([]) prevAssignedTasks: ([]) capacity: 1.0 cost: 0.5]}.
+2019-04-17 08:59:37,423   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.AbstractCoordinator(line:388) : Successfully joined group logFilter with generation 3
+2019-04-17 08:59:37,425   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator(line:256) : Setting newly assigned partitions [log-0] for group logFilter
+2019-04-17 08:59:37,425   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:228) : stream-thread [StreamThread-1] at state PARTITIONS_REVOKED: new partitions [log-0] assigned at the end of consumer rebalance.
+2019-04-17 08:59:37,425   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from PARTITIONS_REVOKED to ASSIGNING_PARTITIONS.
+2019-04-17 08:59:37,425   INFO --- [StreamThread-1]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0] State transition from REBALANCING to REBALANCING.
+2019-04-17 08:59:37,426   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:858) : stream-thread [StreamThread-1] Creating active task 0_0 with assigned partitions [log-0]
+2019-04-17 08:59:37,449   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamTask(line:140) : task [0_0] Initializing state stores
+2019-04-17 08:59:37,452   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamTask(line:333) : task [0_0] Initializing processor nodes of the topology
+2019-04-17 08:59:37,460   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from ASSIGNING_PARTITIONS to RUNNING.
+2019-04-17 08:59:37,460   INFO --- [StreamThread-1]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-918c6b20-7b74-4a53-a443-fcb2c467bfc0] State transition from REBALANCING to RUNNING.
+2019-04-17 09:00:07,297   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:00:07,298   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:00:37,318   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:00:37,318   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:01:07,414   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:01:07,415   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:01:37,427   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:01:37,427   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:02:07,469   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:02:07,470   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:02:37,572   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:02:37,573   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:03:07,658   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:03:07,659   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:03:37,671   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:03:37,671   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:04:07,695   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:04:07,696   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:04:37,717   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:04:37,717   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:05:07,730   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:05:07,730   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:05:37,792   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:05:37,792   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:06:17,469   INFO --- [main]  org.apache.kafka.streams.StreamsConfig(line:180) : StreamsConfig values: 
+	application.id = logFilter
+	application.server = 
+	bootstrap.servers = [localhost:9092]
+	buffered.records.per.partition = 1000
+	cache.max.bytes.buffering = 10485760
+	client.id = 
+	commit.interval.ms = 30000
+	connections.max.idle.ms = 540000
+	key.serde = class org.apache.kafka.common.serialization.Serdes$ByteArraySerde
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	num.standby.replicas = 0
+	num.stream.threads = 1
+	partition.grouper = class org.apache.kafka.streams.processor.DefaultPartitionGrouper
+	poll.ms = 100
+	receive.buffer.bytes = 32768
+	reconnect.backoff.ms = 50
+	replication.factor = 1
+	request.timeout.ms = 40000
+	retry.backoff.ms = 100
+	rocksdb.config.setter = null
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	state.cleanup.delay.ms = 60000
+	state.dir = /tmp/kafka-streams
+	timestamp.extractor = class org.apache.kafka.streams.processor.FailOnInvalidTimestamp
+	value.serde = class org.apache.kafka.common.serialization.Serdes$ByteArraySerde
+	windowstore.changelog.additional.retention.ms = 86400000
+	zookeeper.connect = localhost:2181
+
+2019-04-17 09:06:17,628   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:304) : stream-thread [StreamThread-1] Creating producer client
+2019-04-17 09:06:17,636   INFO --- [main]  org.apache.kafka.clients.producer.ProducerConfig(line:180) : ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	block.on.buffer.full = false
+	bootstrap.servers = [localhost:9092]
+	buffer.memory = 33554432
+	client.id = logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544-StreamThread-1-producer
+	compression.type = none
+	connections.max.idle.ms = 540000
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+	linger.ms = 100
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.fetch.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 10
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	timeout.ms = 30000
+	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+2019-04-17 09:06:17,677   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:83) : Kafka version : 0.10.2.1
+2019-04-17 09:06:17,678   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:84) : Kafka commitId : e89bffd6b2eff799
+2019-04-17 09:06:17,678   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:306) : stream-thread [StreamThread-1] Creating consumer client
+2019-04-17 09:06:17,684   INFO --- [main]  org.apache.kafka.clients.consumer.ConsumerConfig(line:180) : ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544-StreamThread-1-consumer
+	connections.max.idle.ms = 540000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = logFilter
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 2147483647
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [org.apache.kafka.streams.processor.internals.StreamPartitionAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2019-04-17 09:06:17,718   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:83) : Kafka version : 0.10.2.1
+2019-04-17 09:06:17,719   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:84) : Kafka commitId : e89bffd6b2eff799
+2019-04-17 09:06:17,719   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:317) : stream-thread [StreamThread-1] Creating restore consumer client
+2019-04-17 09:06:17,719   INFO --- [main]  org.apache.kafka.clients.consumer.ConsumerConfig(line:180) : ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544-StreamThread-1-restore-consumer
+	connections.max.idle.ms = 540000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = 
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 2147483647
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2019-04-17 09:06:17,723   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:83) : Kafka version : 0.10.2.1
+2019-04-17 09:06:17,723   INFO --- [main]  org.apache.kafka.common.utils.AppInfoParser(line:84) : Kafka commitId : e89bffd6b2eff799
+2019-04-17 09:06:17,725   INFO --- [main]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from NOT_RUNNING to RUNNING.
+2019-04-17 09:06:17,912   INFO --- [main]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544] State transition from CREATED to RUNNING.
+2019-04-17 09:06:17,913   INFO --- [main]  org.apache.kafka.streams.KafkaStreams(line:436) : stream-client [logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544] Started Kafka Stream process
+2019-04-17 09:06:17,913   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:358) : stream-thread [StreamThread-1] Starting
+2019-04-17 09:06:17,926   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.AbstractCoordinator(line:586) : Discovered coordinator 192.168.12.53:9092 (id: 2147483647 rack: null) for group logFilter.
+2019-04-17 09:06:17,927   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator(line:397) : Revoking previously assigned partitions [] for group logFilter
+2019-04-17 09:06:17,928   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:248) : stream-thread [StreamThread-1] at state RUNNING: partitions [] revoked at the beginning of consumer rebalance.
+2019-04-17 09:06:17,928   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from RUNNING to PARTITIONS_REVOKED.
+2019-04-17 09:06:17,928   INFO --- [StreamThread-1]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544] State transition from RUNNING to REBALANCING.
+2019-04-17 09:06:17,929   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:1042) : stream-thread [StreamThread-1] Updating suspended tasks to contain active tasks []
+2019-04-17 09:06:17,930   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:1049) : stream-thread [StreamThread-1] Removing all active tasks []
+2019-04-17 09:06:17,930   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:1064) : stream-thread [StreamThread-1] Removing all standby tasks []
+2019-04-17 09:06:17,930   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.AbstractCoordinator(line:420) : (Re-)joining group logFilter
+2019-04-17 09:06:17,938   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:300) : stream-thread [StreamThread-1] Constructed client metadata {65ea2992-803f-4674-ba6f-b5b8326c5544=ClientMetadata{hostInfo=null, consumers=[logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544-StreamThread-1-consumer-b2f74965-0ac3-4852-b5d5-8bd7db0e6790], state=[activeTasks: ([]) assignedTasks: ([]) prevActiveTasks: ([]) prevAssignedTasks: ([]) capacity: 1.0 cost: 0.0]}} from the member subscriptions.
+2019-04-17 09:06:17,939   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:640) : stream-thread [StreamThread-1] Completed validating internal topics in partition assignor
+2019-04-17 09:06:17,939   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:640) : stream-thread [StreamThread-1] Completed validating internal topics in partition assignor
+2019-04-17 09:06:17,941   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamPartitionAssignor(line:476) : stream-thread [StreamThread-1] Assigned tasks to clients as {65ea2992-803f-4674-ba6f-b5b8326c5544=[activeTasks: ([0_0]) assignedTasks: ([0_0]) prevActiveTasks: ([]) prevAssignedTasks: ([]) capacity: 1.0 cost: 0.5]}.
+2019-04-17 09:06:17,945   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.AbstractCoordinator(line:388) : Successfully joined group logFilter with generation 5
+2019-04-17 09:06:17,947   INFO --- [StreamThread-1]  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator(line:256) : Setting newly assigned partitions [log-0] for group logFilter
+2019-04-17 09:06:17,947   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:228) : stream-thread [StreamThread-1] at state PARTITIONS_REVOKED: new partitions [log-0] assigned at the end of consumer rebalance.
+2019-04-17 09:06:17,947   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from PARTITIONS_REVOKED to ASSIGNING_PARTITIONS.
+2019-04-17 09:06:17,947   INFO --- [StreamThread-1]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544] State transition from REBALANCING to REBALANCING.
+2019-04-17 09:06:17,947   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:858) : stream-thread [StreamThread-1] Creating active task 0_0 with assigned partitions [log-0]
+2019-04-17 09:06:17,974   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamTask(line:140) : task [0_0] Initializing state stores
+2019-04-17 09:06:17,978   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamTask(line:333) : task [0_0] Initializing processor nodes of the topology
+2019-04-17 09:06:17,988   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:163) : stream-thread [StreamThread-1] State transition from ASSIGNING_PARTITIONS to RUNNING.
+2019-04-17 09:06:17,988   INFO --- [StreamThread-1]  org.apache.kafka.streams.KafkaStreams(line:224) : stream-client [logFilter-65ea2992-803f-4674-ba6f-b5b8326c5544] State transition from REBALANCING to RUNNING.
+2019-04-17 09:06:47,812   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:06:47,812   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:07:17,868   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:07:17,869   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:07:47,960   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:07:47,960   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:08:18,016   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:08:18,016   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:08:48,070   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:08:48,070   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:09:18,119   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:09:18,119   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:09:48,221   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:09:48,221   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:10:18,280   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:10:18,280   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:10:48,331   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:10:48,331   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:11:18,337   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:11:18,337   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:11:48,378   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:11:48,378   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:12:18,393   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:12:18,393   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:12:48,433   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:12:48,433   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:13:18,444   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:13:18,445   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:13:48,448   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:13:48,449   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:14:18,488   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:14:18,488   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:14:48,524   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:14:48,524   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:15:18,572   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:15:18,572   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:15:48,627   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:15:48,628   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:16:18,730   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:16:18,730   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:16:48,788   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:16:48,788   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:17:18,889   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:17:18,889   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:17:48,963   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:17:48,963   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:18:19,009   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:18:19,009   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:18:49,077   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:18:49,077   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:19:19,153   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:19:19,153   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:19:49,207   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:19:49,208   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:20:19,231   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:20:19,231   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:20:49,275   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:20:49,275   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:21:19,313   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:21:19,314   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:21:49,319   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:21:49,320   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:22:19,327   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:22:19,327   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:22:49,345   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:22:49,345   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:23:19,362   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:23:19,363   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:23:49,381   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:23:49,382   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:24:19,445   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:24:19,445   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:24:49,475   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:24:49,475   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:25:19,485   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:25:19,486   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:25:49,568   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:25:49,568   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:26:19,613   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:26:19,613   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:26:49,619   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:26:49,620   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:27:19,688   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:27:19,688   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:27:49,755   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:27:49,756   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:28:19,794   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:28:19,794   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:28:49,871   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:28:49,871   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:29:19,962   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:29:19,962   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:29:49,997   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:29:49,997   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:30:20,063   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:30:20,063   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:30:50,148   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:30:50,148   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:31:20,156   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:31:20,157   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:31:50,199   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:31:50,200   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:32:20,301   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:32:20,301   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:32:50,305   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:32:50,305   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:33:20,324   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:33:20,325   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:33:50,334   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:33:50,334   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:34:20,335   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:34:20,336   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:34:50,408   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:34:50,408   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:35:20,477   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:35:20,477   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:35:50,572   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:35:50,572   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:36:20,614   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:36:20,615   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:36:50,702   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:36:50,703   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:37:20,796   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:37:20,796   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:37:50,878   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:37:50,879   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:38:20,975   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:38:20,975   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:38:51,079   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:38:51,080   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:39:21,134   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:39:21,135   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:39:51,189   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:39:51,190   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:40:21,281   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:40:21,282   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:40:51,328   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:40:51,328   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:41:21,420   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:41:21,420   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:41:51,514   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:41:51,515   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:42:21,568   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:42:21,569   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:42:51,663   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:42:51,663   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:43:21,738   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:43:21,739   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
+2019-04-17 09:43:51,828   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:767) : stream-thread [StreamThread-1] Committing all tasks because the commit interval 30000ms has elapsed
+2019-04-17 09:43:51,828   INFO --- [StreamThread-1]  org.apache.kafka.streams.processor.internals.StreamThread(line:805) : stream-thread [StreamThread-1] Committing task StreamTask 0_0
