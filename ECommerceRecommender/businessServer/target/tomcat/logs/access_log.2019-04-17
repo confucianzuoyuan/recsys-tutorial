@@ -168,3 +168,16 @@
 0:0:0:0:0:0:0:1 - - [17/Apr/2019:09:42:55 +0800] "GET //rest/product/info/218439 HTTP/1.1" 200 361 http-bio-8088-exec-4 7
 0:0:0:0:0:0:0:1 - - [17/Apr/2019:09:42:55 +0800] "GET //rest/product/itemcf/218439 HTTP/1.1" 200 1777 http-bio-8088-exec-2 15
 0:0:0:0:0:0:0:1 - - [17/Apr/2019:09:42:55 +0800] "GET //rest/product/contentbased/218439 HTTP/1.1" 200 1749 http-bio-8088-exec-3 19
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:10:03:09 +0800] "GET /rest/product/rate?num=6&username=123@456 HTTP/1.1" 200 2063 http-bio-8088-exec-8 11
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:10:03:09 +0800] "GET /rest/product/hot?num=6&username=123@456 HTTP/1.1" 200 1927 http-bio-8088-exec-9 27
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:10:03:09 +0800] "GET /rest/product/stream?num=6&username=123@456 HTTP/1.1" 200 6551 http-bio-8088-exec-7 30
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:10:03:09 +0800] "GET /rest/product/offline?num=6&username=123@456 HTTP/1.1" 200 6606 http-bio-8088-exec-10 34
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET / HTTP/1.1" 200 897 http-bio-8088-exec-1 64
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET /inline.bundle.js HTTP/1.1" 304 - http-bio-8088-exec-3 6
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET /styles.bundle.js HTTP/1.1" 304 - http-bio-8088-exec-5 5
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET /scripts.bundle.js HTTP/1.1" 304 - http-bio-8088-exec-4 6
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET /vendor.bundle.js HTTP/1.1" 304 - http-bio-8088-exec-6 4
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET /polyfills.bundle.js HTTP/1.1" 304 - http-bio-8088-exec-2 6
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:49 +0800] "GET /main.bundle.js HTTP/1.1" 304 - http-bio-8088-exec-7 4
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:50 +0800] "GET /assets/logo.png HTTP/1.1" 304 - http-bio-8088-exec-12 2
+0:0:0:0:0:0:0:1 - - [17/Apr/2019:13:44:50 +0800] "GET /glyphicons-halflings-regular.448c34a56d699c29117a.woff2 HTTP/1.1" 304 - http-bio-8088-exec-12 20
