@@ -1,0 +1,256 @@
+== 机器学习数学基础
+
+* 高等数学
+* 线性代数
+* 概率论和统计学
+
+=== 线性代数
+
+==== 什么是矩阵
+
+* 矩阵（Matrix）是一个按照长方阵列排列的复数或实数集合
+* 矩阵最早来自于方程组的系数及常数所构成的方阵，最初是用来解决线性方程求解的工具
+* 矩阵是高等代数中的常见工具，也常见于统计分析等应用数学学科中；矩阵在物理学和计算机科学中都有应用
+* 矩阵的运算是数值分析领域的重要问题
+
+==== 矩阵
+
+===== 矩阵的定义
+
+[stem]
+++++
+A = 
+\begin{bmatrix}
+    a_{11} & a_{12} & a_{13} & \dots  & a_{1n} \\
+    a_{21} & a_{22} & a_{23} & \dots  & a_{2n} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    a_{m1} & a_{m2} & a_{m3} & \dots  & a_{mn}
+\end{bmatrix}
+++++
+
+以上是stem:[m \times n]矩阵的定义。
+
+* 由stem:[m \times n]个数stem:[a_{ij}, (i = 1,2,...,m;  j = 1,2,...,n)]排成的m行n列的数表 A就称为m行n列的矩阵。
+* 这stem:[m \times n]个数称作矩阵A的元素stem:[a_{ij}]，元素位于矩阵A的第i行第j列。
+* stem:[m \times n]矩阵A可以记作stem:[A_{m \times n}]，其中m是行数，n是列数，m, n > 0。
+
+===== 特殊矩阵
+
+对于stem:[A_{m \times n}]，如果m=n，即矩阵的行数与列数相等，那么称A为方阵。例如：
+
+[stem]
+++++
+A = 
+\begin{bmatrix}
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9
+\end{bmatrix}
+++++
+
+==== 矩阵中的概念
+
+* 行数与列数都等于n的矩阵称为n阶矩阵，又称做n阶方阵，可以记作stem:[A_n]。
+* 只有一行的矩阵stem:[A_{1 \times n}]称为行矩阵，又叫行向量。
+* 同样，只有一列的矩阵stem:[A_{n \times 1}]称为列矩阵，又叫列向量。
+* 对于方阵，从左上角到右下角的直线，叫做主对角线，主对角线上的元素称为主对角线元素。
+
+[stem]
+++++
+A = 
+\begin{bmatrix}
+    \textbf{1} & 2 & 3 \\
+    4 & \textbf{5} & 6 \\
+    7 & 8 & \textbf{9}
+\end{bmatrix}
+++++
+
+===== 特殊矩阵
+
+* 矩阵的元素全部为0，称为零矩阵，用O表示。
+* 对于方阵，如果只有对角线元素为1，其余元素都为0，那么称为单位矩阵，一般用I或者E表示。
+* 对于方阵，不在对角线上的元素都为0，称为对角矩阵。
+
+==== 矩阵的加法
+
+* 把矩阵的对应位元素相加。
+* 矩阵的形状必须一致，即必须是同型矩阵。
+
+[stem]
+++++
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
++
+\begin{bmatrix}
+1 & 1 \\
+1 & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1+1 & 2+1 \\
+3+1 & 4+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 3 \\
+4 & 5
+\end{bmatrix}
+++++
+
+==== 矩阵的乘法
+
+===== 数与矩阵相乘
+
+数值与矩阵每一个元素相乘。
+
+[stem]
+++++
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+\times
+2
+=
+\begin{bmatrix}
+1 \times 2 & 2 \times 2 \\
+3 \times 2 & 4 \times 2
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 4 \\
+6 & 8
+\end{bmatrix}
+++++
+
+===== 矩阵与矩阵相乘
+
+* 左矩阵的每一行与右矩阵的每一列，对应每一个元素相乘。
+* stem:[A \times B]，那么有A矩阵stem:[m \times n]，B 矩阵stem:[n \times k]，要求左侧矩阵的列数n，必须等于右侧矩阵的行数n，结果矩阵C为stem:[m \times k]矩阵。
+
+定义：
+
+[stem]
+++++
+\begin{bmatrix}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    b_{11} & b_{12} \\
+    b_{21} & b_{22} \\
+    b_{31} & b_{32}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    a_{11}b_{11}+a_{12}b_{21}+a_{13}b_{31} & a_{11}b_{12}+a_{12}b_{22}+a_{13}b_{32} \\
+    a_{21}b_{11}+a_{22}b_{21}+a_{23}b_{31} & a_{21}b_{12}+a_{22}b_{22}+a_{23}b_{32}
+\end{bmatrix}
+++++
+
+练习：
+
+[stem]
+++++
+\begin{bmatrix}
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9
+\end{bmatrix}
+=?
+++++
+
+==== 矩阵的转置
+
+* 把矩阵A的行换成相同序数的列，得到一个新矩阵，叫做A的转置矩阵，记作stem:[A^T]
+* 行变列，列变行
+* A 为stem:[m \times n]矩阵，转置之后为stem:[m \times n]矩阵
+
+[stem]
+++++
+\begin{bmatrix}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23}
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+    a_{11} & a_{21} \\
+    a_{12} & a_{22} \\
+    a_{13} & a_{23}
+\end{bmatrix}
+++++
+
+==== 矩阵的运算方法
+
+===== 加法
+
+* stem:[A + B = B + A]
+* stem:[(A + B) + C = A + (B + C)]
+
+===== 乘法
+
+* stem:[(λμ)A = λ(μA)]
+* stem:[(λ + μ)A = λA + μA]
+* stem:[λ(A + B) = λA + λB]
+* stem:[(AB) C = A(BC)]
+* stem:[λ(AB) = (λA)B = A(λB)]
+* stem:[A(B + C) = AB + AC]
+* stem:[(B + C)A = BA + CA]
+
+===== 减法
+
+* stem:[A - B = A + B × (-1)]
+* stem:[A - A = A + (-A) = O]
+
+===== 转置
+
+* stem:[(A^T)^T = A]
+* stem:[(A + B)^T = A^T + B^T]
+* stem:[λ(A)^T = λA^T]
+* stem:[(AB)^T = B^T A^T]
+
+==== 矩阵的逆
+
+* 对于n阶方阵A，如果有一个n阶方阵B，使得stem:[AB = BA = E]，就称矩阵A是可逆的，并把B称为A的逆矩阵。
+* A的逆矩阵记作stem:[A^{-1}]，如果stem:[AB = BA = E]，则stem:[B = A-1]。
+
+[stem]
+++++
+\begin{bmatrix}
+  1 & 2 & 3 \\
+  2 & 2 & 1 \\
+  3 & 4 & 3
+\end{bmatrix}
+\times
+\begin{bmatrix}
+  1 & 3 & -2 \\
+  -\frac{3}{2} & -3 & \frac{5}{2} \\
+  1 & 1 & -1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+++++
+
+=== 微积分基础知识
+
+* 什么是导数
+* 偏导数
+* 方向导数和梯度
+* 凸函数和凹函数
+
+==== 什么是导数
+
+
