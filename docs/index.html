@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.9">
 <meta name="author" content="尚硅谷大数据讲师左元">
-<title>尚硅谷Flink教程</title>
+<title>尚硅谷机器学习和推荐系统教程</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>尚硅谷Flink教程</h1>
+<h1>尚硅谷机器学习和推荐系统教程</h1>
 <div class="details">
 <span id="author" class="author">尚硅谷大数据讲师左元</span><br>
 <span id="email" class="email"><a href="mailto:zuoyuan@atguigu.com">zuoyuan@atguigu.com</a></span><br>
@@ -487,6 +487,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_微积分基础知识">1.2. 微积分基础知识</a>
 <ul class="sectlevel3">
 <li><a href="#_什么是导数">1.2.1. 什么是导数</a></li>
+<li><a href="#_偏导数">1.2.2. 偏导数</a></li>
+<li><a href="#_方向导数">1.2.3. 方向导数</a></li>
+<li><a href="#_梯度gradient">1.2.4. 梯度（Gradient）</a></li>
+<li><a href="#_凸函数和凹函数">1.2.5. 凸函数和凹函数</a></li>
+</ul>
+</li>
+<li><a href="#_概率论和统计学">1.3. 概率论和统计学</a>
+<ul class="sectlevel3">
+<li><a href="#_常用统计变量">1.3.1. 常用统计变量</a></li>
+<li><a href="#_常见概率分布">1.3.2. 常见概率分布</a></li>
+<li><a href="#_重要概率公式">1.3.3. 重要概率公式</a></li>
 </ul>
 </li>
 </ul>
@@ -915,7 +926,148 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect3">
 <h4 id="_什么是导数">1.2.1. 什么是导数</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/derivative.png" alt="derivative">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>导数反映的是函数y = f(x)在某一点处沿x轴正方向的变化率</p>
+</li>
+<li>
+<p>在x轴上某一点处，如果f'(x)&gt;0，说明f(x)的函数值在x点沿x轴正方向是趋于增加的；如果f'(x)&lt;0，说明f(x)的函数值在x点沿x轴正方向是趋于减少的</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_偏导数">1.2.2. 偏导数</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>导数与偏导数本质是一致的，都是当自变量的变化量趋于0时，函数值的变化量与自变量变化量比值的极限</p>
+</li>
+<li>
+<p>偏导数也就是函数在某一点上沿某个坐标轴正方向的的变化率</p>
+</li>
+<li>
+<p>导数指的是一元函数中，函数y=f(x)在某一点处沿x轴正方向的变化率；而偏导数，指的是多元函数中，函数\(y=f(x_1,x_2,…,x_n)\)在某一点处沿某一坐标轴\((x_1,x_2,…,x_n)\)正方向的变化率</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_方向导数">1.2.3. 方向导数</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>函数某一点在某一趋近方向（向量方向）上的导数值</p>
+</li>
+<li>
+<p>方向导数就是函数在除坐标轴正方向外，其他特定方向上的变化率</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_梯度gradient">1.2.4. 梯度（Gradient）</h4>
+<div class="paragraph">
+<p>问题：函数在变量空间的某一点处，沿着哪一个方向有最大的变化率？</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>定义：函数在某一点的梯度是这样一个向量，它的方向与取得最大方向导数的方向一致，而它的模为方向导数的最大值</p>
+</li>
+<li>
+<p>梯度是一个向量，即有方向、有大小； </p>
+</li>
+<li>
+<p>梯度的方向是最大方向导数的方向；梯度的值是最大方向导数的值</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_凸函数和凹函数">1.2.5. 凸函数和凹函数</h4>
 
+</div>
+</div>
+<div class="sect2">
+<h3 id="_概率论和统计学">1.3. 概率论和统计学</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>常用统计变量</p>
+</li>
+<li>
+<p>常见概率分布</p>
+</li>
+<li>
+<p>重要概率公式</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_常用统计变量">1.3.1. 常用统计变量</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>样本均值</p>
+</li>
+<li>
+<p>样本方差</p>
+</li>
+<li>
+<p>样本标准差</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_常见概率分布">1.3.2. 常见概率分布</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_重要概率公式">1.3.3. 重要概率公式</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>条件概率公式</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[P(B \vert A)=\frac{P(AB)}{P(A)}\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>全概率公式</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[P(A) = P(A \vert B_1)P(B_1) + P(A \vert B_2)P(B_2) + \dots + P(A \vert B_n)P(B_n)\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>贝叶斯公式</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[P(B_i \vert A) = \frac{P(A \vert B_i)P(B_i)}{\sum_{j=1}^{n}P(A \vert B_j)P(B_j)}\]
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -924,7 +1076,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2019-09-09 13:52:57 +0800
+Last updated 2019-09-09 22:48:32 +0800
 </div>
 </div>
 <script type="text/x-mathjax-config">

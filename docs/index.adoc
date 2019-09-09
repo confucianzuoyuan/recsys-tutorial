@@ -1,4 +1,4 @@
-= 尚硅谷Flink教程
+= 尚硅谷机器学习和推荐系统教程
 尚硅谷大数据讲师左元 <zuoyuan@atguigu.com>
 v1.0, 2019-06-01
 :icons: font
