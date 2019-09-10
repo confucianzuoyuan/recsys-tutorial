@@ -1264,6 +1264,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/class.png" alt="class">
+</div>
+</div>
 <div class="sect3">
 <h4 id="_监督学习">2.2.1. 监督学习</h4>
 <div class="imageblock">
@@ -1287,6 +1292,64 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><strong>例子</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. 预测房价或者房屋出售情况</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">所在街区</th>
+<th class="tableblock halign-left valign-top">房屋价格</th>
+<th class="tableblock halign-left valign-top">住房面积</th>
+<th class="tableblock halign-left valign-top">住房格局</th>
+<th class="tableblock halign-left valign-top">是否学区</th>
+<th class="tableblock halign-left valign-top">是否售出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">海淀</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7000000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">120</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">三室一厅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">朝阳</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6000000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">二室一厅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">昌平</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5000000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">120</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">二室一厅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">大兴</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6500000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">150</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">三室一厅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">？</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_监督学习深入介绍">2.2.2. 监督学习深入介绍</h4>
@@ -1371,6 +1434,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 当我们有任意一个x时，输入方程，就可以得到对应的y
 例如x = 5时，y = 11。</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/model1.png" alt="model1">
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1451,19 +1519,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>0 - 1损失函数</p>
+<p>0-1损失函数</p>
 </li>
+</ul>
+</div>
+\begin{equation}
+  L(Y,f(X)) =
+    \begin{cases}
+      1 & Y \neq f(X) \\
+      0 & Y=f(X)
+    \end{cases}
+\end{equation}
+<div class="ulist">
+<ul>
 <li>
 <p>平方损失函数</p>
 </li>
+</ul>
+</div>
+L(Y,f(X))=(Y-f(X))^2
+<div class="ulist">
+<ul>
 <li>
 <p>绝对损失函数</p>
 </li>
+</ul>
+</div>
+L(Y,f(X))=\vert Y-f(X) \vert
+<div class="ulist">
+<ul>
 <li>
 <p>对数损失函数</p>
 </li>
 </ul>
 </div>
+L(Y,P(Y \vert X))=-logP(Y \vert X)
 </div>
 <div class="sect4">
 <h5 id="_经验风险">经验风险</h5>
@@ -1479,6 +1569,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[R_{emp}(f)=\frac{1}{N}\sum_{i=1}^N L(y_i, f(x_i))\]
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>经验风险最小化（Empirical Risk Minimization，ERM）</p>
 <div class="ulist">
@@ -1509,24 +1608,42 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>训练误差（training error）是关于训练集的平均损失。</p>
 </li>
-<li>
-<p>训练误差的大小，可以用来判断给定问题是否容易学习，但本质上并不重要</p>
-</li>
 </ul>
 </div>
 </li>
-<li>
-<p>测试误差</p>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[R_{emp}(\hat{f})=\frac{1}{N}\sum_{i=1}^N L(y_i, \hat{f}(x_i))\]
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>测试误差（testing error）是关于测试集的平均损失。</p>
-</li>
+<p>训练误差的大小，可以用来判断给定问题是否容易学习，但本质上并不重要</p>
+<div class="ulist">
+<ul>
 <li>
-<p>测试误差真正反映了模型对未知数据的预测能力，这种能力一般被称为泛化能力。</p>
+<p>测试误差</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>测试误差（testing error）是关于测试集的平均损失。</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[e_{test}(f)=\frac{1}{N'}\sum_{i=1}^{N'} L(y_i, \hat{f}(x_i))\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>测试误差真正反映了模型对未知数据的预测能力，这种能力一般被称为泛化能力。</p>
 </li>
 </ul>
 </div>
@@ -1573,6 +1690,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="imageblock">
 <div class="content">
 <img src="images/fitting.png" alt="fitting">
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f_M(x,w)=w_0+w_1x+w_2x^2+ \dots + w_Mx^M=\sum_{j=0}^Mw_jx^j\]
 </div>
 </div>
 </div>
@@ -1622,14 +1744,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>形式：</p>
 </li>
-<li>
-<p>第一项是经验风险，第二项J(f)是正则化项，\(\lambda \geq 0\)是调整两者关系的系数</p>
-</li>
-<li>
-<p>正则化项可以取不同的形式，比如，特征向量的\(L_1\)范数或\(L_2\)范数</p>
+</ul>
+</div>
 </li>
 </ul>
 </div>
+<div class="stemblock">
+<div class="content">
+\[\min_{f \in F} \frac{1}{N}\sum_{i=1}^N L(y_i,f(x_i))+\lambda J(f)\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>第一项是经验风险，第二项\(J(f)\)是正则化项，\(\lambda \geq 0\)是调整两者关系的系数</p>
+</li>
+<li>
+<p>正则化项可以取不同的形式，比如，特征向量的\(L_1\)范数或\(L_2\)范数</p>
 </li>
 </ul>
 </div>
@@ -1787,23 +1918,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>精确率</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[P=\frac{TP}{TP+FP}\]
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
 <p>精确率指的是“所有预测为正类的数据中，预测正确的比例”</p>
+<div class="ulist">
+<ul>
+<li>
+<p>召回率</p>
 </li>
 </ul>
 </div>
 </li>
-<li>
-<p>召回率</p>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[R=\frac{TP}{TP+FN}\]
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
 <p>召回率指的是“所有实际为正类的数据中，被正确预测找出的比例”</p>
-</li>
-</ul>
-</div>
 </li>
 </ul>
 </div>
@@ -1875,6 +2020,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>沿着负梯度方向迭代，迭代后的 θ 使损失函数 J(θ) 更小：</p>
 </li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\theta = \theta - \alpha  \frac{\partial J(\theta)}{\partial \theta}\]
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山谷处。</p>
 </li>
