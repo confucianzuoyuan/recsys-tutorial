@@ -40,7 +40,6 @@ A =
 
 [stem]
 ++++
-A = 
 \begin{bmatrix}
     1 & 2 & 3 \\
     4 & 5 & 6 \\
@@ -57,7 +56,6 @@ A =
 
 [stem]
 ++++
-A = 
 \begin{bmatrix}
     \textbf{1} & 2 & 3 \\
     4 & \textbf{5} & 6 \\
@@ -273,6 +271,13 @@ image::derivative.png[]
 
 问题：函数在变量空间的某一点处，沿着哪一个方向有最大的变化率？
 
+答案：梯度。
+
+[stem]
+++++
+gradf(x_0, x_1, \dots, x_n)=(\frac{\partial f}{\partial x_0}, \frac{\partial f}{\partial x_1}, \dots, \frac{\partial f}{\partial x_n})
+++++
+
 * 定义：函数在某一点的梯度是这样一个向量，它的方向与取得最大方向导数的方向一致，而它的模为方向导数的最大值
 * 梯度是一个向量，即有方向、有大小； 
 * 梯度的方向是最大方向导数的方向；梯度的值是最大方向导数的值
@@ -292,6 +297,39 @@ image::derivative.png[]
 * 样本标准差
 
 ==== 常见概率分布
+
+* 均匀分布
+
+[stem]
+++++
+f(x)=\frac{1}{b-a}, a < x < b \\
+f(x)=0, else
+++++
+
+image::junyun.png[]
+
+* 正态分布（高斯分布）
+
+[stem]
+++++
+f(x)=\frac{1}{\sqrt {2 \pi} \sigma}exp(-\frac{(x-\mu)^2}{2\sigma^2})
+++++
+
+image::zhengtai.png[]
+
+* 指数分布
+
+[stem]
+++++
+\begin{equation}
+f(x)
+=
+\begin{cases}
+    \lambda e^{- \lambda x} & x \ge 0 \\
+    0 & x < 0
+\end{cases}
+\end{equation}
+++++
 
 ==== 重要概率公式
 

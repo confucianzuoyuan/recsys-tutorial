@@ -551,6 +551,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_梯度下降算法">梯度下降算法</a></li>
 </ul>
 </li>
+<li><a href="#_牛顿法和拟牛顿法">2.2.9. 牛顿法和拟牛顿法</a>
+<ul class="sectlevel4">
+<li><a href="#_牛顿法">牛顿法</a></li>
+<li><a href="#_拟牛顿法">拟牛顿法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -644,8 +650,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="stemblock">
 <div class="content">
-\[A =
-\begin{bmatrix}
+\[\begin{bmatrix}
     1 &amp; 2 &amp; 3 \\
     4 &amp; 5 &amp; 6 \\
     7 &amp; 8 &amp; 9
@@ -674,8 +679,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="stemblock">
 <div class="content">
-\[A =
-\begin{bmatrix}
+\[\begin{bmatrix}
     \textbf{1} &amp; 2 &amp; 3 \\
     4 &amp; \textbf{5} &amp; 6 \\
     7 &amp; 8 &amp; \textbf{9}
@@ -1029,6 +1033,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>问题：函数在变量空间的某一点处，沿着哪一个方向有最大的变化率？</p>
 </div>
+<div class="paragraph">
+<p>答案：梯度。</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[gradf(x_0, x_1, \dots, x_n)=(\frac{\partial f}{\partial x_0}, \frac{\partial f}{\partial x_1}, \dots, \frac{\partial f}{\partial x_n})\]
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1081,7 +1093,60 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect3">
 <h4 id="_常见概率分布">1.3.2. 常见概率分布</h4>
-
+<div class="ulist">
+<ul>
+<li>
+<p>均匀分布</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f(x)=\frac{1}{b-a}, a &lt; x &lt; b \\
+f(x)=0, else\]
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/junyun.png" alt="junyun">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>正态分布（高斯分布）</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f(x)=\frac{1}{\sqrt {2 \pi} \sigma}exp(-\frac{(x-\mu)^2}{2\sigma^2})\]
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/zhengtai.png" alt="zhengtai">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>指数分布</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+f(x)
+=
+\begin{cases}
+    \lambda e^{- \lambda x} &amp; x \ge 0 \\
+    0 &amp; x &lt; 0
+\end{cases}
+\end{equation}\]
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_重要概率公式">1.3.3. 重要概率公式</h4>
@@ -2018,7 +2083,7 @@ L(Y,P(Y \vert X))=-logP(Y \vert X)
 <p>损失函数是系数的函数，那么如果系数沿着损失函数的负梯度方向变化，此时损失函数减少最快，能够以最快速度下降到极小值</p>
 </li>
 <li>
-<p>沿着负梯度方向迭代，迭代后的 θ 使损失函数 J(θ) 更小：</p>
+<p>沿着负梯度方向迭代，迭代后的\(\theta\)使损失函数\(J(\theta)\)更小：</p>
 </li>
 </ul>
 </div>
@@ -2037,6 +2102,55 @@ L(Y,P(Y \vert X))=-logP(Y \vert X)
 </li>
 <li>
 <p>如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_牛顿法和拟牛顿法">2.2.9. 牛顿法和拟牛顿法</h4>
+<div class="sect4">
+<h5 id="_牛顿法">牛顿法</h5>
+<div class="paragraph">
+<p>迭代公式：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[x^{(k+1)}=x^{(k)}-H^{-1}_k g_k\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>其中\(g_k=g(x^{(k)})=\bigtriangledown f(x^{(k)})\)是f(x) 的梯度向量在\(x^{(k)}\)的值，</p>
+</li>
+<li>
+<p>\(H(x^{(k)})\)是f(x)的海塞矩阵在\(x^{(k)}\)的值</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[H(x)=[\frac{\partial^2 f}{\partial x_i \partial x_j}]_{n \times n}\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>梯度下降法只考虑了一阶导数，而牛顿法考虑了二阶导数，因此收敛速度更快</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_拟牛顿法">拟牛顿法</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>牛顿法需要求解目标函数的海赛矩阵的逆矩阵，计算比较复杂</p>
+</li>
+<li>
+<p>拟牛顿法通过正定矩阵近似海赛矩阵的逆矩阵，从而大大简化了计算过程</p>
 </li>
 </ul>
 </div>
