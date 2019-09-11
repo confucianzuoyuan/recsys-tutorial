@@ -490,7 +490,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_偏导数">1.2.2. 偏导数</a></li>
 <li><a href="#_方向导数">1.2.3. 方向导数</a></li>
 <li><a href="#_梯度gradient">1.2.4. 梯度（Gradient）</a></li>
-<li><a href="#_凸函数和凹函数">1.2.5. 凸函数和凹函数</a></li>
+<li><a href="#_凸函数和凹函数">1.2.5. 凸函数和凹函数</a>
+<ul class="sectlevel4">
+<li><a href="#_凸函数">凸函数</a></li>
+<li><a href="#_凹函数">凹函数</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_概率论和统计学">1.3. 概率论和统计学</a>
@@ -1041,6 +1046,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/fangxiang.png" alt="fangxiang">
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\frac{\partial}{\partial l} f(x_0, x_1, \dots, x_n)
+=
+\lim_{\rho \to 0} \frac{\Delta y}{\Delta x}
+=
+\lim_{\rho \to 0} \frac{f(x_0+\Delta x_0,\dots,x_j+\Delta x_j, \dots, x_n+\Delta x_n)-f(x_0,\dots,x_1,\dots,x_n)}{\rho} \\
+其中，\rho=\sqrt{(\Delta x_0)^2+\dots+(\Delta x_j)^2+(\Delta x_n)^2}\]
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_梯度gradient">1.2.4. 梯度（Gradient）</h4>
@@ -1053,6 +1073,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="stemblock">
 <div class="content">
 \[gradf(x_0, x_1, \dots, x_n)=(\frac{\partial f}{\partial x_0}, \frac{\partial f}{\partial x_1}, \dots, \frac{\partial f}{\partial x_n})\]
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/tidu.png" alt="tidu">
 </div>
 </div>
 <div class="ulist">
@@ -1071,7 +1096,39 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect3">
 <h4 id="_凸函数和凹函数">1.2.5. 凸函数和凹函数</h4>
-
+<div class="paragraph">
+<p><span class="image"><img src="images/tuao.png" alt="tuao"></span></p>
+</div>
+<div class="sect4">
+<h5 id="_凸函数">凸函数</h5>
+<div class="paragraph">
+<p>凸函数是具有如下特性的一个定义在某个向量空间的凸子集C（区间）上的实值函数f：对其定义域C上的任意两点\(x_{1},x_{2}\)，总有\(f(\frac{x_1+x_2}{2}) \le \frac{f(x_1)+f(x_2)}{2}\)。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/tuhanshu.png" alt="tuhanshu">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_凹函数">凹函数</h5>
+<div class="paragraph">
+<p>我们称一个有实值函数f在某区间（或者某个向量空间中的凹集）上是凹的，如果对任意该区间内不相等的x和y和[0,1]中的任意t有</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f(tx+(1-t)y) \ge tf(x)+(1-t)f(y)\]
+</div>
+</div>
+<div class="paragraph">
+<p>某函数f:R→R，在x和y之间的每一点z，在图中的点(z, f(z))是在以点(x, f(x)) and (y, f(y))连成的直线之上。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/aohanshu.png" alt="aohanshu">
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1096,13 +1153,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>样本均值</p>
 </li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[E(X)=\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i\]
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>样本方差</p>
 </li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[D(X)=S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2
+=\frac{1}{n-1}\sum_{i=1}^n (X^2_i-n \bar{X})\]
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>样本标准差</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>\sqrt{D(X)}=S=\sqrt{\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2}</p>
 </div>
 </div>
 <div class="sect3">
@@ -1965,6 +2044,11 @@ f(x)
 </div>
 <div class="sect4">
 <h5 id="_分类问题">分类问题</h5>
+<div class="imageblock">
+<div class="content">
+<img src="images/fenlei.png" alt="fenlei">
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2050,6 +2134,11 @@ f(x)
 </div>
 <div class="sect4">
 <h5 id="_回归问题">回归问题</h5>
+<div class="imageblock">
+<div class="content">
+<img src="images/huigui.png" alt="huigui">
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2122,6 +2211,11 @@ f(x)
 \[\theta = \theta - \alpha  \frac{\partial J(\theta)}{\partial \theta}\]
 </div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/tiduxiajiang.png" alt="tiduxiajiang">
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2152,7 +2246,7 @@ f(x)
 <div class="ulist">
 <ul>
 <li>
-<p>其中\(g_k=g(x^{(k)})=\bigtriangledown f(x^{(k)})\)是f(x) 的梯度向量在\(x^{(k)}\)的值，</p>
+<p>其中\(g_k=g(x^{(k)})=\nabla f(x^{(k)})\)是f(x) 的梯度向量在\(x^{(k)}\)的值，</p>
 </li>
 <li>
 <p>\(H(x^{(k)})\)是f(x)的海塞矩阵在\(x^{(k)}\)的值</p>

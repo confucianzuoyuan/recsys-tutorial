@@ -399,7 +399,7 @@ image::tiduxiajiang.png[]
 x^{(k+1)}=x^{(k)}-H^{-1}_k g_k
 ++++
 
-* 其中stem:[g_k=g(x^{(k)})=\bigtriangledown f(x^{(k)})]是f(x) 的梯度向量在stem:[x^{(k)}]的值，
+* 其中stem:[g_k=g(x^{(k)})=\nabla f(x^{(k)})]是f(x) 的梯度向量在stem:[x^{(k)}]的值，
 * stem:[H(x^{(k)})]是f(x)的海塞矩阵在stem:[x^{(k)}]的值
 
 [stem]
