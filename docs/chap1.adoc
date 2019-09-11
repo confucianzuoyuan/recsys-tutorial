@@ -258,6 +258,17 @@ image::derivative.png[]
 
 ==== 偏导数
 
+image::piandaoshu.png[]
+
+[stem]
+++++
+\frac{\partial}{\partial x_j} f(x_0,x_1,\dots,x_n)
+=
+\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x}
+=
+\lim_{\Delta x \to 0} \frac{f(x_0,\dots,x_j+\Delta x, \dots, x_n)-f(x_0,\dots,x_j,\dots,x_n)}{\Delta x}
+++++
+
 * 导数与偏导数本质是一致的，都是当自变量的变化量趋于0时，函数值的变化量与自变量变化量比值的极限
 * 偏导数也就是函数在某一点上沿某个坐标轴正方向的的变化率
 * 导数指的是一元函数中，函数y=f(x)在某一点处沿x轴正方向的变化率；而偏导数，指的是多元函数中，函数stem:[y=f(x_1,x_2,…,x_n)]在某一点处沿某一坐标轴stem:[(x_1,x_2,…,x_n)]正方向的变化率
@@ -266,6 +277,18 @@ image::derivative.png[]
 
 * 函数某一点在某一趋近方向（向量方向）上的导数值
 * 方向导数就是函数在除坐标轴正方向外，其他特定方向上的变化率
+
+image::fangxiang.png[]
+
+[stem]
+++++
+\frac{\partial}{\partial l} f(x_0, x_1, \dots, x_n)
+=
+\lim_{\rho \to 0} \frac{\Delta y}{\Delta x}
+=
+\lim_{\rho \to 0} \frac{f(x_0+\Delta x_0,\dots,x_j+\Delta x_j, \dots, x_n+\Delta x_n)-f(x_0,\dots,x_1,\dots,x_n)}{\rho} \\
+其中，\rho=\sqrt{(\Delta x_0)^2+\dots+(\Delta x_j)^2+(\Delta x_n)^2}
+++++
 
 ==== 梯度（Gradient）
 
@@ -278,11 +301,34 @@ image::derivative.png[]
 gradf(x_0, x_1, \dots, x_n)=(\frac{\partial f}{\partial x_0}, \frac{\partial f}{\partial x_1}, \dots, \frac{\partial f}{\partial x_n})
 ++++
 
+image::tidu.png[]
+
 * 定义：函数在某一点的梯度是这样一个向量，它的方向与取得最大方向导数的方向一致，而它的模为方向导数的最大值
 * 梯度是一个向量，即有方向、有大小； 
 * 梯度的方向是最大方向导数的方向；梯度的值是最大方向导数的值
 
 ==== 凸函数和凹函数
+
+image:tuao.png[]
+
+===== 凸函数
+
+凸函数是具有如下特性的一个定义在某个向量空间的凸子集C（区间）上的实值函数f：对其定义域C上的任意两点stem:[x_{1},x_{2}]，总有stem:[f(\frac{x_1+x_2}{2}) \le \frac{f(x_1)+f(x_2)}{2}]。
+
+image::tuhanshu.png[]
+
+===== 凹函数
+
+我们称一个有实值函数f在某区间（或者某个向量空间中的凹集）上是凹的，如果对任意该区间内不相等的x和y和[0,1]中的任意t有
+
+[stem]
+++++
+f(tx+(1-t)y) \ge tf(x)+(1-t)f(y)
+++++
+
+某函数f:R→R，在x和y之间的每一点z，在图中的点(z, f(z))是在以点(x, f(x)) and (y, f(y))连成的直线之上。
+
+image::aohanshu.png[]
 
 === 概率论和统计学
 
@@ -293,8 +339,23 @@ gradf(x_0, x_1, \dots, x_n)=(\frac{\partial f}{\partial x_0}, \frac{\partial f}{
 ==== 常用统计变量
 
 * 样本均值
+
+[stem]
+++++
+E(X)=\bar{X}=\frac{1}{n}\sum_{i=1}^n X_i
+++++
+
 * 样本方差
+
+[stem]
+++++
+D(X)=S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2
+=\frac{1}{n-1}\sum_{i=1}^n (X^2_i-n \bar{X})
+++++
+
 * 样本标准差
+
+\sqrt{D(X)}=S=\sqrt{\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2}
 
 ==== 常见概率分布
 
