@@ -573,6 +573,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_最小二乘法">3.1.1. 最小二乘法</a>
 <ul class="sectlevel4">
 <li><a href="#_最小二乘法求解过程">最小二乘法求解过程</a></li>
+<li><a href="#_梯度下降法求解过程">梯度下降法求解过程</a></li>
 </ul>
 </li>
 </ul>
@@ -2511,6 +2512,65 @@ b = \frac{1}{m}\sum_{i=1}^m (y_i-wx_i)\]
 </div>
 <div class="paragraph">
 <p>其中：\(\bar{x}=\frac{1}{m}\sum_{i=1}^m x_i\)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_梯度下降法求解过程">梯度下降法求解过程</h5>
+<div class="paragraph">
+<p>求解\(w\)和\(b\)，使得\(E_{(w,b)}=\sum_{i=1}^m (wx_i+b-y_i)^2\)达到极小值，也可以使用梯度下降法。</p>
+</div>
+<div class="paragraph">
+<p>梯度为：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[[\frac{\partial}{\partial w} E_{(w,b)}, \frac{\partial}{\partial b} E_{(w,b)}] \\
+\frac{\partial E_{(w,b)}}{\partial w} = 2(w \sum_{i=1}^m x_i^2 - \sum_{i=1}^m (y_i-b)x_i) \\
+\frac{\partial E_{(w,b)}}{b} = 2(mb-\sum_{i=1}^m (y_i-wx_i))\]
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+这里不是令偏导数为零了，而是准备梯度下降。
+</td>
+</tr>
+</table>
+</div>
+<div class="stemblock">
+<div class="content">
+\[w_{next} := w_{current} - \alpha \frac{\partial E}{\partial w}
+b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+以上，\(w,b\)的初始值，\(\alpha\)的值，以及迭代的次数，都是超参数。因为不是机器学习学习出来的参数。
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>\(\alpha\)在梯度下降算法中被称作为学习率或者步长</p>
+</li>
+<li>
+<p>这意味着我们可以通过\(\alpha\)来控制每一步走的距离，以保证不要走太快，错过了最低点；同时也要保证收敛速度不要太慢</p>
+</li>
+<li>
+<p>所以\(\alpha\)的选择在梯度下降法中往往是很重要的，不能太大也不能太小</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

@@ -99,3 +99,30 @@ b = \frac{1}{m}\sum_{i=1}^m (y_i-wx_i)
 ++++
 
 其中：stem:[\bar{x}=\frac{1}{m}\sum_{i=1}^m x_i]
+
+===== 梯度下降法求解过程
+
+求解stem:[w]和stem:[b]，使得stem:[E_{(w,b)}=\sum_{i=1}^m (wx_i+b-y_i)^2]达到极小值，也可以使用梯度下降法。
+
+梯度为：
+
+[stem]
+++++
+[\frac{\partial}{\partial w} E_{(w,b)}, \frac{\partial}{\partial b} E_{(w,b)}] \\
+\frac{\partial E_{(w,b)}}{\partial w} = 2(w \sum_{i=1}^m x_i^2 - \sum_{i=1}^m (y_i-b)x_i) \\
+\frac{\partial E_{(w,b)}}{b} = 2(mb-\sum_{i=1}^m (y_i-wx_i))
+++++
+
+NOTE: 这里不是令偏导数为零了，而是准备梯度下降。
+
+[stem]
+++++
+w_{next} := w_{current} - \alpha \frac{\partial E}{\partial w}
+b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}
+++++
+
+NOTE: 以上，stem:[w,b]的初始值，stem:[\alpha]的值，以及迭代的次数，都是超参数。因为不是机器学习学习出来的参数。
+
+* stem:[\alpha]在梯度下降算法中被称作为学习率或者步长
+* 这意味着我们可以通过stem:[\alpha]来控制每一步走的距离，以保证不要走太快，错过了最低点；同时也要保证收敛速度不要太慢
+* 所以stem:[\alpha]的选择在梯度下降法中往往是很重要的，不能太大也不能太小
