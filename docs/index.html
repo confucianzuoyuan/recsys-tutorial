@@ -2336,6 +2336,9 @@ f(x)
 <div class="ulist">
 <ul>
 <li>
+<p>感知机</p>
+</li>
+<li>
 <p>K近邻（KNN）</p>
 </li>
 <li>
@@ -2376,12 +2379,26 @@ f(x)
 <li>
 <p>具体来说，利用线性回归模型，可以从一组输入变量x的线性组合中，计算输出变量y</p>
 </li>
+<li>
+<p>一元线性回归(只有一个特征\(x\))</p>
+</li>
 </ul>
 </div>
 <div class="stemblock">
 <div class="content">
-\[y=wx+b \\
-f(x) = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b\]
+\[y=wx+b\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>多元线性回归(有多个特征\(x_0,x_1,\dots,x_n\))</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f(x) = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b\]
 </div>
 </div>
 <div class="imageblock">
@@ -2396,7 +2413,7 @@ f(x) = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b\]
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-线性回归就是从上图中的一堆散点图，拟合出一条直线\(y=wx+b\)。这里的拟合其实就是机器学习。散点为训练数据，我们要从训练数据中学习出一条直线。
+一元线性回归就是从上图中的一堆散点图，拟合出一条直线\(y=wx+b\)。这里的拟合其实就是机器学习。散点为训练数据，我们要从训练数据中学习出一条直线。
 </td>
 </tr>
 </table>
@@ -2433,7 +2450,7 @@ f(x) = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b\]
 </div>
 <div class="stemblock">
 <div class="content">
-\[Loss Function = \sum_{i=1}^m (wx_i + b - y_i)^2\]
+\[L(w,b) = \sum_{i=1}^m (wx_i + b - y_i)^2\]
 </div>
 </div>
 </div>
@@ -2537,12 +2554,12 @@ f(x) = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b\]
 </div>
 <div class="stemblock">
 <div class="content">
-\[2(w \sum_{i=1}^m x_i^2 - \sum_{i=1}^m (y_i-b)x_i) = 0 \\
-w = \frac{\sum_{i=1}^m (y_i-b)x_i}{\sum_{i=1}^m x_i^2}\]
+\[2(mb-\sum_{i=1}^m (y_i-wx_i)) = 0 \\
+b = \frac{1}{m}\sum_{i=1}^m (y_i-wx_i)\]
 </div>
 </div>
 <div class="paragraph">
-<p>将\(w\)代入到第二个式子中，可以解得\(b\)的值，然后再将\(b\)的值代入到w的表达式，即可解得\(w\)。</p>
+<p>将\(b\)代入到第一个式子中，可以解得\(w\)的值，然后再将\(w\)的值代入到b的表达式，即可解得\(b\)。</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -2771,23 +2788,40 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 <div class="paragraph">
 <p><strong>算法步骤</strong></p>
 </div>
-<div class="literalblock">
+<div class="exampleblock">
 <div class="content">
-<pre>输入：训练数据集stem:[T=(x_N,y_N),(x_N,y_N),\dots,(x_N,y_N),y_i \in {-1,+1},学习率 \eta (0 &lt; \eta &lt; 1)]
-
-输出：stem:[w,b]；感知机模型stem:[f(x)=sign(wx+b)]
-
-. 赋初值stem:[w_0,b_0]
-. 选取数据点stem:[(x_i,y_i)]
-. 判断该数据点是否为当前模型的误分类点，即判断若stem:[y_i(wx_i+b) \le 0]则更新：
-
-[stem]
-++++
-w = w + \eta y_i x_i \\
-b = b + \eta y_i
-++++
-
-4. 转到2，直到训练集中没有误分类点。</pre>
+<div class="paragraph">
+<p>输入：训练数据集\(T=(x_N,y_N),(x_N,y_N),\dots,(x_N,y_N),y_i \in \{-1,+1\},学习率 \eta (0 &lt; \eta &lt; 1)\)</p>
+</div>
+<div class="paragraph">
+<p>输出：\(w,b\)；感知机模型\(f(x)=sign(wx+b)\)</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>赋初值\(w_0,b_0\)</p>
+</li>
+<li>
+<p>选取数据点\((x_i,y_i)\)</p>
+</li>
+<li>
+<p>判断该数据点是否为当前模型的误分类点，即判断若\(y_i(wx_i+b) \le 0\)则更新：</p>
+</li>
+</ol>
+</div>
+<div class="stemblock">
+<div class="content">
+\[w = w + \eta y_i x_i \\
+b = b + \eta y_i\]
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>转到2，直到训练集中没有误分类点。</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
