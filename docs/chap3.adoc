@@ -1,0 +1,101 @@
+== 机器学习模型简介
+
+主要内容
+
+*监督学习*
+
+* 回归模型
+** 线性回归
+
+* 分类模型
+** K近邻（KNN）
+** 决策树
+** 逻辑斯蒂回归
+
+*无监督学习*
+
+* 聚类
+** K均值聚类
+
+=== 线性回归
+
+* 线性回归（linear regression）是一种线性模型，它假设输入变量x和单个输出变量y之间存在线性关系
+* 具体来说，利用线性回归模型，可以从一组输入变量x的线性组合中，计算输出变量y
+
+[stem]
+++++
+y=wx+b \\
+f(x) = w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b
+++++
+
+image::xianxinghuigui.png[]
+
+NOTE: 线性回归就是从上图中的一堆散点图，拟合出一条直线stem:[y=wx+b]。这里的拟合其实就是机器学习。散点为训练数据，我们要从训练数据中学习出一条直线。
+
+这里的模型就是线性回归模型。那么机器学习的算法呢？
+
+* 最小二乘法
+* 梯度下降法
+
+NOTE: 注意我们这里还没有讲监督学习三要素中的策略呢！
+
+==== 最小二乘法
+
+* 基于均方误差最小化来进行模型求解的方法称为“最小二乘法”（least square method）。
+* 它的主要思想就是选择未知参数，使得理论值与观测值之差的平方和达到最小。
+
+image::zuixiaoercheng.png[]
+
+* 我们假设输入属性（特征）的数目只有一个：就是stem:[f(x)=wx+b]中的stem:[x]。我们的训练数据是stem:[(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n)]。要从这些训练数据中学习一个模型出来，使得：stem:[f(x_i)=wx_i+b, f(x_i) \approx y_i]。
+
+* 在线性回归中，最小二乘法就是试图找到一条直线，使所有样本到直线上的欧式距离之和最小。
+
+[stem]
+++++
+\begin{align}
+(w^*,b^*) &= \arg \min_{(w,b)}\sum_{i=1}^m (f(x_i)-y_i)^2 \\
+          &= \arg \min_{(w,b)}\sum_{i=1}^m (wx_i+b-y_i)^2
+\end{align}
+++++
+
+NOTE: 以上就是监督学习三要素中的策略！
+
+===== 最小二乘法求解过程
+
+* 求解stem:[w]和stem:[b]，使得stem:[E_{(w,b)}=\sum_{i=1}^m (wx_i+b-y_i)^2]最小化的过程，称为线性回归模型的“最小二乘估计”。
+
+* 将stem:[E_{(w,b)}]分别对stem:[w]和stem:[b]进行求导，可以得到：
+
+[stem]
+++++
+\begin{align}
+\frac{\partial E_{(w,b)}}{\partial w} 
+&= \frac{\partial ((wx_1+b-y_1)^2+ \dots + (wx_m+b-y_m)^2)}{\partial w} \\
+&= 2(wx_1+b-y_1)x_1+ \dots +2(wx_m+b-y_m)x_m \\
+&= 2(wx_1^2-(y_1-b)x_1) + \dots + 2(wx_m^2-(y_m-b)x_m) \\
+&= 2(w \sum_{i=1}^m x_i^2 - \sum_{i=1}^m (y_i-b)x_i) \\
+
+\frac{\partial E_{(w,b)}}{b}
+&= \frac{\partial ((wx_1+b-y_1)^2+ \dots + (wx_m+b-y_m)^2)}{\partial w} \\
+&= 2(wx_1+b-y_1) + \dots + 2(wx_m+b-y_m) \\
+&= 2(mb-\sum_{i=1}^m (y_i-wx_i))
+\end{align}
+++++
+
+* 令偏导数都为0，可以得到：
+
+[stem]
+++++
+2(w \sum_{i=1}^m x_i^2 - \sum_{i=1}^m (y_i-b)x_i) = 0 \\
+w = \frac{\sum_{i=1}^m (y_i-b)x_i}{\sum_{i=1}^m x_i^2}
+++++
+
+将stem:[w]代入到第二个式子中，可以解得stem:[b]的值，然后再将stem:[b]的值代入到w的表达式，即可解得stem:[w]。
+
+[stem]
+++++
+w = \frac{\sum_{i=1}^m y_i(x_i-\bar{x})}{\sum_{i=1}^m x_i^2-\frac{1}{m}(\sum_{i=1}^m x_i)^2} \\
+b = \frac{1}{m}\sum_{i=1}^m (y_i-wx_i)
+++++
+
+其中：stem:[\bar{x}=\frac{1}{m}\sum_{i=1}^m x_i]
