@@ -242,8 +242,9 @@ L(w,b)=-\sum_{x_i \in M}y_i(wx_i+b)
 L(w,b)=\arg \min_{w,b}(-\sum_{x_i \in M}y_i(wx_i+b))
 ++++
 
-算法步骤：
+*算法步骤*
 
+....
 输入：训练数据集stem:[T=(x_N,y_N),(x_N,y_N),\dots,(x_N,y_N),y_i \in {-1,+1},学习率 \eta (0 < \eta < 1)]
 
 输出：stem:[w,b]；感知机模型stem:[f(x)=sign(wx+b)]
@@ -259,5 +260,8 @@ b = b + \eta y_i
 ++++
 
 4. 转到2，直到训练集中没有误分类点。
+....
 
 ==== 代码
+
+https://zhuanlan.zhihu.com/p/32925500[点击链接学习如何安装和使用Anaconda]

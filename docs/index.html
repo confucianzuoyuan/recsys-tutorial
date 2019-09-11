@@ -2769,44 +2769,33 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="paragraph">
-<p>算法步骤：</p>
+<p><strong>算法步骤</strong></p>
 </div>
-<div class="paragraph">
-<p>输入：训练数据集\(T=(x_N,y_N),(x_N,y_N),\dots,(x_N,y_N),y_i \in {-1,+1},学习率 \eta (0 &lt; \eta &lt; 1)\)</p>
-</div>
-<div class="paragraph">
-<p>输出：\(w,b\)；感知机模型\(f(x)=sign(wx+b)\)</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>赋初值\(w_0,b_0\)</p>
-</li>
-<li>
-<p>选取数据点\((x_i,y_i)\)</p>
-</li>
-<li>
-<p>判断该数据点是否为当前模型的误分类点，即判断若\(y_i(wx_i+b) \le 0\)则更新：</p>
-</li>
-</ol>
-</div>
-<div class="stemblock">
+<div class="literalblock">
 <div class="content">
-\[w = w + \eta y_i x_i \\
-b = b + \eta y_i\]
+<pre>输入：训练数据集stem:[T=(x_N,y_N),(x_N,y_N),\dots,(x_N,y_N),y_i \in {-1,+1},学习率 \eta (0 &lt; \eta &lt; 1)]
+
+输出：stem:[w,b]；感知机模型stem:[f(x)=sign(wx+b)]
+
+. 赋初值stem:[w_0,b_0]
+. 选取数据点stem:[(x_i,y_i)]
+. 判断该数据点是否为当前模型的误分类点，即判断若stem:[y_i(wx_i+b) \le 0]则更新：
+
+[stem]
+++++
+w = w + \eta y_i x_i \\
+b = b + \eta y_i
+++++
+
+4. 转到2，直到训练集中没有误分类点。</pre>
 </div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>转到2，直到训练集中没有误分类点。</p>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_代码">3.2.6. 代码</h4>
-
+<div class="paragraph">
+<p><a href="https://zhuanlan.zhihu.com/p/32925500">点击链接学习如何安装和使用Anaconda</a></p>
+</div>
 </div>
 </div>
 </div>
