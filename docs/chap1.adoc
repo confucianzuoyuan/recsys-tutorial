@@ -371,7 +371,7 @@ f(x)=\frac{1}{b-a}, a < x < b \\
 f(x)=0, else
 ++++
 
-image::junyun.png[]
+image::junyunfenbu.png[]
 
 * 正态分布（高斯分布）
 
@@ -395,6 +395,8 @@ f(x)
 \end{cases}
 \end{equation}
 ++++
+
+image::zhishu.png[]
 
 ==== 重要概率公式
 
