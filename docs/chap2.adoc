@@ -143,7 +143,7 @@ k\boldsymbol{A} =
 \end{bmatrix}
 ++++
 
-是一个stem:[m]行stem:[n]列的矩阵，其中第stem:[i]行第$j$列（$1 \leq i \leq m, 1 \leq j \leq n$）的元素为
+是一个stem:[m]行stem:[n]列的矩阵，其中第stem:[i]行第stem:[j]列（stem:[1 \leq i \leq m, 1 \leq j \leq n]）的元素为
 
 [stem]
 ++++

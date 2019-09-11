@@ -287,7 +287,8 @@ image::fangxiang.png[]
 \lim_{\rho \to 0} \frac{\Delta y}{\Delta x}
 =
 \lim_{\rho \to 0} \frac{f(x_0+\Delta x_0,\dots,x_j+\Delta x_j, \dots, x_n+\Delta x_n)-f(x_0,\dots,x_1,\dots,x_n)}{\rho} \\
-其中，\rho=\sqrt{(\Delta x_0)^2+\dots+(\Delta x_j)^2+(\Delta x_n)^2}
+其中，\rho=\sqrt{(\Delta x_0)^2+\dots+(\Delta x_j)^2+(\Delta x_n)^2} \\
+l = (\Delta x_0, \Delta x_1, \dots, \Delta x_n)
 ++++
 
 ==== 梯度（Gradient）
@@ -355,7 +356,10 @@ D(X)=S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2
 
 * 样本标准差
 
+[stem]
+++++
 \sqrt{D(X)}=S=\sqrt{\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2}
+++++
 
 ==== 常见概率分布
 
