@@ -2095,24 +2095,15 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 </div>
 <div class="sect4">
 <h5 id="_监督学习过程示例">监督学习过程示例</h5>
-<div class="paragraph">
-<p>假设我们有一个如下的二元一次方程：\(Ax + B\)
-我们已知两组数据：
-* \(x = 1\)时，\(y = 3\)，即\((1, 3)\)
-* \(x = 2\)时，\(y = 5\)，即\((2, 5)\)
-将数据输入方程中，可得：</p>
-</div>
-<div class="stemblock">
+<div class="imageblock">
 <div class="content">
-\[A + B = 3 \\
-2A + B = 5\]
+<img src="images/luojihuigui7.png" alt="luojihuigui7">
 </div>
 </div>
-<div class="paragraph">
-<p>解得：\(A = 2, B = 1\)
-即方程为：\(2x + 1 = y\)
-当我们有任意一个x时，输入方程，就可以得到对应的y
-例如x = 5时，y = 11。</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui8.png" alt="luojihuigui8">
+</div>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2393,6 +2384,9 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 \[f_M(x,w)=w_0+w_1x+w_2x^2+ \dots + w_Mx^M=\sum_{j=0}^Mw_jx^j\]
 </div>
 </div>
+<div class="paragraph">
+<p>以上可以看到，当\(M=0,M=1\)时，是明显的欠拟合状态，有些数据没有拟合到。而当\(M=3\)时，虽然没有和样本点完全吻合，却是拟合的最好的一条曲线。而当\(M=9\)时，曲线严格吻合样本点，但却是严重的过拟合，为什么？因为在拟合或者说机器学习的过程中，我们把噪声也拟合进去了，所以造成了过拟合。</p>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -2422,7 +2416,7 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 <div class="ulist">
 <ul>
 <li>
-<p>是在 ERM 基础上，为了防止过拟合而提出来的策略</p>
+<p>是在ERM基础上，为了防止过拟合而提出来的策略</p>
 </li>
 <li>
 <p>在经验风险上加上表示模型复杂度的正则化项（regularizer），或者叫惩罚项</p>
@@ -2459,6 +2453,25 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 <p>正则化项可以取不同的形式，比如，特征向量的\(L_1\)范数或\(L_2\)范数</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>例如：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f_M(x,w)=w_0+w_1x+w_2x^2+ \dots + w_Mx^M=\sum_{j=0}^Mw_jx^j\]
+</div>
+</div>
+<div class="paragraph">
+<p>的正则化项可以设置为</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\sqrt \sum_{j=0}^M w_j^2\]
+</div>
+</div>
+<div class="paragraph">
+<p>这样就可以很好的惩罚过拟合，因为一旦过拟合，系数将会非常的大，而这就造成了结构风险也会很大。</p>
 </div>
 <div class="sect4">
 <h5 id="_奥卡姆剃刀">奥卡姆剃刀</h5>
