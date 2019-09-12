@@ -18,6 +18,10 @@
 * 聚类
 ** K均值聚类
 
+=== 使用Anaconda
+
+https://zhuanlan.zhihu.com/p/32925500[点击链接学习如何安装和使用Anaconda]
+
 === 线性回归
 
 * 线性回归（linear regression）是一种线性模型，它假设输入变量x和单个输出变量y之间存在线性关系
@@ -264,14 +268,10 @@ L(w,b)=\arg \min_{w,b}(-\sum_{x_i \in M}y_i(wx_i+b))
 
 [stem]
 ++++
-w = w + \eta y_i x_i \\
-b = b + \eta y_i
+w \leftarrow w + \eta y_i x_i \\
+b \leftarrow b + \eta y_i
 ++++
 
 [start=4]
 . 转到2，直到训练集中没有误分类点。
 ====
-
-==== 代码
-
-https://zhuanlan.zhihu.com/p/32925500[点击链接学习如何安装和使用Anaconda]

@@ -597,27 +597,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_机器学习模型简介">4. 机器学习模型简介</a>
 <ul class="sectlevel2">
-<li><a href="#_线性回归">4.1. 线性回归</a>
+<li><a href="#_使用anaconda">4.1. 使用Anaconda</a></li>
+<li><a href="#_线性回归">4.2. 线性回归</a>
 <ul class="sectlevel3">
-<li><a href="#_损失函数_2">4.1.1. 损失函数</a></li>
-<li><a href="#_学习算法">4.1.2. 学习算法</a></li>
-<li><a href="#_最小二乘法">4.1.3. 最小二乘法</a>
+<li><a href="#_损失函数_2">4.2.1. 损失函数</a></li>
+<li><a href="#_学习算法">4.2.2. 学习算法</a></li>
+<li><a href="#_最小二乘法">4.2.3. 最小二乘法</a>
 <ul class="sectlevel4">
 <li><a href="#_最小二乘法求解过程">最小二乘法求解过程</a></li>
 </ul>
 </li>
-<li><a href="#_梯度下降法求解过程">4.1.4. 梯度下降法求解过程</a></li>
-<li><a href="#_梯度下降法和最小二乘法">4.1.5. 梯度下降法和最小二乘法</a></li>
+<li><a href="#_梯度下降法求解过程">4.2.4. 梯度下降法求解过程</a></li>
+<li><a href="#_梯度下降法和最小二乘法">4.2.5. 梯度下降法和最小二乘法</a></li>
 </ul>
 </li>
-<li><a href="#_感知机perceptron">4.2. 感知机（Perceptron）</a>
+<li><a href="#_感知机perceptron">4.3. 感知机（Perceptron）</a>
 <ul class="sectlevel3">
-<li><a href="#_感知机的定义">4.2.1. 感知机的定义</a></li>
-<li><a href="#_感知机的数学原理">4.2.2. 感知机的数学原理</a></li>
-<li><a href="#_感知机的模型">4.2.3. 感知机的模型</a></li>
-<li><a href="#_感知机的损失函数">4.2.4. 感知机的损失函数</a></li>
-<li><a href="#_感知机学习算法">4.2.5. 感知机学习算法</a></li>
-<li><a href="#_代码">4.2.6. 代码</a></li>
+<li><a href="#_感知机的定义">4.3.1. 感知机的定义</a></li>
+<li><a href="#_感知机的数学原理">4.3.2. 感知机的数学原理</a></li>
+<li><a href="#_感知机的模型">4.3.3. 感知机的模型</a></li>
+<li><a href="#_感知机的损失函数">4.3.4. 感知机的损失函数</a></li>
+<li><a href="#_感知机学习算法">4.3.5. 感知机学习算法</a></li>
 </ul>
 </li>
 </ul>
@@ -2857,7 +2857,13 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_线性回归">4.1. 线性回归</h3>
+<h3 id="_使用anaconda">4.1. 使用Anaconda</h3>
+<div class="paragraph">
+<p><a href="https://zhuanlan.zhihu.com/p/32925500">点击链接学习如何安装和使用Anaconda</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_线性回归">4.2. 线性回归</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2931,7 +2937,7 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 </table>
 </div>
 <div class="sect3">
-<h4 id="_损失函数_2">4.1.1. 损失函数</h4>
+<h4 id="_损失函数_2">4.2.1. 损失函数</h4>
 <div class="paragraph">
 <p>这里使用平方损失函数，并且没有正则化项。</p>
 </div>
@@ -2942,7 +2948,7 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 </div>
 </div>
 <div class="sect3">
-<h4 id="_学习算法">4.1.2. 学习算法</h4>
+<h4 id="_学习算法">4.2.2. 学习算法</h4>
 <div class="paragraph">
 <p>求解\(w,b\)使得平方损失函数取得最小值。</p>
 </div>
@@ -2958,7 +2964,7 @@ Samuel九十岁去世，八十八岁还在写代码。。。
 </div>
 </div>
 <div class="sect3">
-<h4 id="_最小二乘法">4.1.3. 最小二乘法</h4>
+<h4 id="_最小二乘法">4.2.3. 最小二乘法</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3060,7 +3066,7 @@ b = \frac{1}{m}\sum_{i=1}^m (y_i-wx_i)\]
 </div>
 </div>
 <div class="sect3">
-<h4 id="_梯度下降法求解过程">4.1.4. 梯度下降法求解过程</h4>
+<h4 id="_梯度下降法求解过程">4.2.4. 梯度下降法求解过程</h4>
 <div class="paragraph">
 <p>求解\(w\)和\(b\)，使得\(E_{(w,b)}=\sum_{i=1}^m (wx_i+b-y_i)^2\)达到极小值，也可以使用梯度下降法。</p>
 </div>
@@ -3125,7 +3131,7 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="sect3">
-<h4 id="_梯度下降法和最小二乘法">4.1.5. 梯度下降法和最小二乘法</h4>
+<h4 id="_梯度下降法和最小二乘法">4.2.5. 梯度下降法和最小二乘法</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3159,9 +3165,9 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="sect2">
-<h3 id="_感知机perceptron">4.2. 感知机（Perceptron）</h3>
+<h3 id="_感知机perceptron">4.3. 感知机（Perceptron）</h3>
 <div class="sect3">
-<h4 id="_感知机的定义">4.2.1. 感知机的定义</h4>
+<h4 id="_感知机的定义">4.3.1. 感知机的定义</h4>
 <div class="paragraph">
 <p>感知机是机器学习应用中分类的最简单的一种算法。如下图所示：感知机划分超平面</p>
 </div>
@@ -3175,7 +3181,7 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="sect3">
-<h4 id="_感知机的数学原理">4.2.2. 感知机的数学原理</h4>
+<h4 id="_感知机的数学原理">4.3.2. 感知机的数学原理</h4>
 <div class="paragraph">
 <p>首先，点\(P(x_0,y_0)\)到直线\(Ax+By+C=0\)的距离为：</p>
 </div>
@@ -3212,7 +3218,7 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="sect3">
-<h4 id="_感知机的模型">4.2.3. 感知机的模型</h4>
+<h4 id="_感知机的模型">4.3.3. 感知机的模型</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/ganzhiji2.png" alt="ganzhiji2">
@@ -3235,7 +3241,7 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="sect3">
-<h4 id="_感知机的损失函数">4.2.4. 感知机的损失函数</h4>
+<h4 id="_感知机的损失函数">4.3.4. 感知机的损失函数</h4>
 <div class="paragraph">
 <p>我们定义样本\((x_i,y_i)\)，如果上面的距离\(d &gt; 0\)，则\(y_i=1\)；如果\(d &lt; 0\),则\(y_i=-1\)，这样取\(y\)有一个好处，就是方便定义损失函数。优化的目标：期望使误分类的所有样本，到超平面的距离之和最小。</p>
 </div>
@@ -3260,7 +3266,7 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 </div>
 <div class="sect3">
-<h4 id="_感知机学习算法">4.2.5. 感知机学习算法</h4>
+<h4 id="_感知机学习算法">4.3.5. 感知机学习算法</h4>
 <div class="paragraph">
 <p>感知机学习算法是对于上述损失函数进行极小化，求得\(w\)和\(b\)。这里使用随机梯度下降法(SGD)，因为误分类的M集合里面的样本才能参加损失函数的优化。</p>
 </div>
@@ -3298,8 +3304,8 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 </div>
 <div class="stemblock">
 <div class="content">
-\[w = w + \eta y_i x_i \\
-b = b + \eta y_i\]
+\[w \leftarrow w + \eta y_i x_i \\
+b \leftarrow b + \eta y_i\]
 </div>
 </div>
 <div class="olist arabic">
@@ -3310,12 +3316,6 @@ b = b + \eta y_i\]
 </ol>
 </div>
 </div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_代码">4.2.6. 代码</h4>
-<div class="paragraph">
-<p><a href="https://zhuanlan.zhihu.com/p/32925500">点击链接学习如何安装和使用Anaconda</a></p>
 </div>
 </div>
 </div>
