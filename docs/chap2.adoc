@@ -279,7 +279,7 @@ f(x + \epsilon) \approx f(x) + f'(x) \epsilon.
 
 ==== 梯度
 
-假设函数stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}]的输入是一个stem:[n]维向量stem:[\boldsymbol{x} = [x_1, x_2, \ldots, x_n]^\top]，输出是标量。函数stem:[f(\boldsymbol{x})]有关stem:[\boldsymbol{x}]的梯度是一个由stem:[n]个偏导数组成的向量：
+假设函数stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}]的输入是一个stem:[n]维向量stem:[\boldsymbol{x} = [x_1, x_2, \ldots, x_n \]^\top]，输出是标量。函数stem:[f(\boldsymbol{x})]有关stem:[\boldsymbol{x}]的梯度是一个由stem:[n]个偏导数组成的向量：
 
 [stem]
 ++++
@@ -309,7 +309,7 @@ f(x + \epsilon) \approx f(x) + f'(x) \epsilon.
 
 ==== 海森矩阵
 
-假设函数stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}]的输入是一个stem:[n]维向量stem:[\boldsymbol{x} = [x_1, x_2, \ldots, x_n]^\top]，输出是标量。假定函数stem:[f]所有的二阶偏导数都存在，stem:[f]的海森矩阵stem:[\boldsymbol{H}]是一个stem:[n]行stem:[n]列的矩阵：
+假设函数stem:[f: \mathbb{R}^n \rightarrow \mathbb{R}]的输入是一个stem:[n]维向量stem:[\boldsymbol{x} = [x_1, x_2, \ldots, x_n \]^\top]，输出是标量。假定函数stem:[f]所有的二阶偏导数都存在，stem:[f]的海森矩阵stem:[\boldsymbol{H}]是一个stem:[n]行stem:[n]列的矩阵：
 
 [stem]
 ++++
