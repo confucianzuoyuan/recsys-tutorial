@@ -620,6 +620,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_感知机学习算法">4.3.5. 感知机学习算法</a></li>
 </ul>
 </li>
+<li><a href="#_逻辑回归logistic_regression">4.4. 逻辑回归（Logistic Regression）</a>
+<ul class="sectlevel3">
+<li><a href="#_直观理解">4.4.1. 直观理解</a></li>
+<li><a href="#_逻辑回归模型">4.4.2. 逻辑回归模型</a></li>
+<li><a href="#_损失函数_3">4.4.3. 损失函数</a></li>
+<li><a href="#_梯度下降">4.4.4. 梯度下降</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -3284,7 +3292,7 @@ b_{next} := b_{current} - \alpha \frac{\partial E}{\partial b}\]
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p>输入：训练数据集\(T=(x_N,y_N),(x_N,y_N),\dots,(x_N,y_N),y_i \in \{-1,+1\},学习率 \eta (0 &lt; \eta &lt; 1)\)</p>
+<p>输入：训练数据集\(T=(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N),y_i \in \{-1,+1\},学习率 \eta (0 &lt; \eta &lt; 1)\)</p>
 </div>
 <div class="paragraph">
 <p>输出：\(w,b\)；感知机模型\(f(x)=sign(wx+b)\)</p>
@@ -3315,6 +3323,272 @@ b \leftarrow b + \eta y_i\]
 </li>
 </ol>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_逻辑回归logistic_regression">4.4. 逻辑回归（Logistic Regression）</h3>
+<div class="sect3">
+<h4 id="_直观理解">4.4.1. 直观理解</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+逻辑回归虽然叫回归，但其实是分类算法。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>我们还记不记得感知机一节中给出的这张图？还记得感知机是怎么工作的吗？</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui.png" alt="luojihuigui">
+</div>
+</div>
+<div class="paragraph">
+<p>感知机生成一个超平面（在二维中表现为一条直线），这个超平面可以将图中的两类点区分开。像下面这张图，图中的所有直线都可以作为感知机的超平面（因为它们都能把训练集中的点完美地分开）。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui2.png" alt="luojihuigui2">
+</div>
+</div>
+<div class="paragraph">
+<p>但是感知机存在一个很重要的问题，我们只用\(sign(wx+b)\)输出的\(+1\)和\(-1\)来判断点的类别是不是太简单了？是不是有点生硬的感觉。</p>
+</div>
+<div class="paragraph">
+<p>这么简单的判别方式真的会很有效吗？</p>
+</div>
+<div class="paragraph">
+<p>当然了，虽然我们已经程序测试过正确率很高，但总是让人有点担心是否在很多情况下都能很好地工作。事实上我们从小到大一直会听到一些升学考试差一分两分的例子，那么差一分和高一分的学生真的就是天壤之别吗？感知机也是如此：在超平面左侧距离原点0.001的点和右侧距离原点0.001的点输出就是+1和-1这天壤之别的差距真的合适吗？</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui3.png" alt="luojihuigui3">
+</div>
+</div>
+<div class="paragraph">
+<p>此外我们也知道机器学习中通常会对目标函数进行微分（求导）进而梯度下降，但我们看上面这张图。很明显\(x=0\)是跳跃间断点，因此\(sign\)是一条不光滑的函数，没有办法进行微分。咦？那我记得感知器用了梯度下降，它是怎么去梯度下降的？</p>
+</div>
+<div class="paragraph">
+<p>我们回忆一下感知器的梯度下降方式，确实用了梯度下降，但是发现没有，它把sign的壳子去掉了，对sign内部进行梯度下降，相对于其他能直接微分的算法来说，感知器的这种方式确实有点不太好。</p>
+</div>
+<div class="paragraph">
+<p>感知机算法：</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>输入：训练数据集\(T=(x_1,y_1),(x_2,y_2),\dots,(x_N,y_N),y_i \in \{-1,+1\},学习率 \eta (0 &lt; \eta &lt; 1)\)</p>
+</div>
+<div class="paragraph">
+<p>输出：\(w,b\)；感知机模型\(f(x)=sign(wx+b)\)</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>赋初值\(w_0,b_0\)</p>
+</li>
+<li>
+<p>选取数据点\((x_i,y_i)\)</p>
+</li>
+<li>
+<p>判断该数据点是否为当前模型的误分类点，即判断若\(y_i(wx_i+b) \le 0\)则更新：</p>
+</li>
+</ol>
+</div>
+<div class="stemblock">
+<div class="content">
+\[w \leftarrow w + \eta y_i x_i \\
+b \leftarrow b + \eta y_i\]
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>转到2，直到训练集中没有误分类点。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>因此既然我们要对感知器进行优化，那么上文的这两个主要的缺陷咱们得想想法子看看能不能弥补。我们首先试试解决第一个问题：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>怎么解决极小距离差别带来的+1和-1的天壤之别？</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>在逻辑斯蒂回归中大致思想与感知器相同，但在输出\(+1\)与\(-1\)之间存在一些差别。我们知道\(P(Y|X)\)，它表示在给定\(X\)条件下，\(Y\)发生的概率。逻辑回归也使用了同样的概念，它使用\(p(Y=-1|X)\)和\(p(Y=1|X)\)来表示该样本分别为\(-1\)或\(1\)的概率（实际上逻辑回归并非强制要求标签必须为1或-1，可以用任意标签来表示）。这样当再出现样本\(X_1\)距离为\(-0.001\)时，可能\(P(Y=1|X_1)=0.49,P(Y=0|X_1)=0.51\)，那么我们觉得\(X_1\)为0的概率更大一点，但我们同时也清楚程序可能并不太确定\(X_1\)一定为\(0\)。</p>
+</div>
+<div class="paragraph">
+<p>使用概率作为输出结果使得样本在距离很小的差别下不再强制地输出\(+1\)和\(-1\)这两种天壤之别的结果，而是通过概率的方式告诉你结果可能是多少，同时也告诉你预测的不确信程度。这样子看起来让人比较安心一点不是吗？</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>怎么让最终的预测式子可微呢？</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>虽然无法微分并不会阻碍感知器的正常工作（事实上只是避开了sign），但对于很多场合都需要微分的机器学习来说，能找到一个可以微分的最终式子是很重要的。为了解决第一个问题我们提出了一种概率输出模型，那么感知器的\(sign\)也需要被随之替换为一种能输出概率大小的函数。具体函数在下文中详细讲解，其中值得高兴的是，我们找到的概率输出式子是平滑的，可微的，所以第二个问题也就迎刃而解了。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_逻辑回归模型">4.4.2. 逻辑回归模型</h4>
+<div class="paragraph">
+<p>与感知器一样，我们先不管内部怎么工作，最好能够得到一个函数\(f(x)\)，我们将样本\(x\)放进去以后，它告诉我们属于\(1\)的概率是多少。比如说\(f(y=1|x)=0.2,f(y=0|x)=0.8\)，我们就知道该样本的标签大概率是\(0\)。总结一下也就是分别比较两种类别的概率大小，概率大的那一方则作为预测类别进行输出。\(f\)函数的定义如下所示。</p>
+</div>
+<div class="paragraph">
+<p>二项逻辑回归模型是如下的条件概率分布：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[P(Y=1|x)=\frac{\exp{(wx+b)}}{1+\exp{(wx+b)}} \\
+P(Y=0|x)=\frac{1}{1+\exp{(wx+b)}}\]
+</div>
+</div>
+<div class="paragraph">
+<p>这里，\(x \in R^n\)是输入，\(Y \in \{ 0,1 \}\)是输出，\(w \in R^n\)和\(b \in R\)是参数，\(w\)称为权值向量(weight)，\(b\)称为偏置(bias)，\(w \cdot x\)为\(w\)和\(x\)的内积。</p>
+</div>
+<div class="paragraph">
+<p>下图就是\(f(w \cdot x+b)\)的图像，我们假设一下点\(X\)在超平面右边，那么距离应当为正，如果距离无穷大时，\(\exp{(w \cdot x + b)}\)无穷大，\(P(Y=1|x)=1\)，也就是概率为\(1\)，表示极其确信。如果\(w \cdot x+b\)是一个很接近\(0\)的数，\(\exp(w \cdot x + b)\)接近\(1\)，\(P(Y=1|x)=0.5\)，表示两边都有可能，不太确定。我们对于每一个样本点分别计算属于两类的概率，概率较大的一方作为预测的输出。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui4.png" alt="luojihuigui4">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+其实这里的函数\(\phi (z)=\frac{1}{1+e^{-z}}\)，有一个很有名的名字叫做Sigmoid Function，或者叫压缩函数，在神经网络里面经常用到。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_损失函数_3">4.4.3. 损失函数</h4>
+<div class="paragraph">
+<p>好了，所要用的几个函数我们都有了，接下来要做的就是根据给定的训练集，把参数\(w\)给求出来了。要找参数\(w\)，首先就是得把损失函数（cost function）给定义出来，也就是目标函数。</p>
+</div>
+<div class="paragraph">
+<p>我们第一个想到的自然是模仿线性回归的做法，利用误差平方和来当代价函数。</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[L(w,b)=\frac{1}{2} \sum_{i=1}^N (\phi (w \cdot x_i + b)-y_i)^2\]
+</div>
+</div>
+<div class="paragraph">
+<p>其中\((x_i,y_i)\)为样本点。\(y_i\)为真实值，\(\phi (w \cdot x_i + b)\)为预测值。</p>
+</div>
+<div class="paragraph">
+<p>我们发现，逻辑回归的平方损失函数是一个非凸函数，这就意味着损失函数有着许多的局部极小值，这不利于我们求解最小值。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui5.png" alt="luojihuigui5">
+</div>
+</div>
+<div class="paragraph">
+<p>所以我们这里使用<strong>对数损失函数</strong>。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>对数损失函数</p>
+</li>
+</ul>
+</div>
+<div class="stemblock">
+<div class="content">
+\[L(Y,P(Y \vert X))=-logP(Y \vert X)\]
+</div>
+</div>
+<div class="paragraph">
+<p>也就是说</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[L(w,b)=
+\begin{cases}
+  -\log \phi (wx+b) &amp; if y = 1 \\
+  -\log (1-\phi (wx+b)) &amp; if y = 0
+\end{cases}\]
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/luojihuigui6.png" alt="luojihuigui6">
+</div>
+</div>
+<div class="paragraph">
+<p>也就是说</p>
+</div>
+<div class="paragraph">
+<p>当样本值\(y=1\)，而预测值\(\phi (wx+b) = \frac{\exp{(wx+b)}}{1+\exp{(wx+b)}}\)接近于0时，也就是说完全预测错误，那么惩罚将是很大的，是无穷大。\(y=0\)时同理。</p>
+</div>
+<div class="paragraph">
+<p>我们可以得出</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[L(w,b)=
+\begin{cases}
+  -\log \phi (wx+b) &amp; if y = 1 \\
+  -\log (1-\phi (wx+b)) &amp; if y = 0
+\end{cases} \\
+\Downarrow \\
+L(w,b) = -y \log \phi (wx+b) - (1 - y) \log (1 - \phi (wx+b)) \\
+\Downarrow \\
+L(w,b) = \frac{1}{m} \sum_{i=1}^m (-y_i \log \phi (wx_i+b) - (1 - y_i) \log (1 - \phi (wx_i+b)))\]
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_梯度下降">4.4.4. 梯度下降</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Sigmoid Function有一个很好的性质：
+</td>
+</tr>
+</table>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\phi ' (z)=\phi (z)(1-\phi (z))\]
+</div>
+</div>
+<div class="paragraph">
+<p>求偏导数的过程</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\frac{\partial L(w,b)}{\partial w}
+=
+\sum_{i=1}^m (y_ix_i-\frac{x_i \exp (wx_i)}{1+ \exp (wx_i)})\]
 </div>
 </div>
 </div>
