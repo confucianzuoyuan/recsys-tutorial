@@ -171,7 +171,7 @@ A =
 
 * 把矩阵A的行换成相同序数的列，得到一个新矩阵，叫做A的转置矩阵，记作stem:[A^T]
 * 行变列，列变行
-* A 为stem:[m \times n]矩阵，转置之后为stem:[m \times n]矩阵
+* A 为stem:[m \times n]矩阵，转置之后为stem:[n \times m]矩阵
 
 [stem]
 ++++
@@ -213,7 +213,7 @@ A =
 
 * stem:[(A^T)^T = A]
 * stem:[(A + B)^T = A^T + B^T]
-* stem:[λ(A)^T = λA^T]
+* stem:[(λA)^T = λA^T]
 * stem:[(AB)^T = B^T A^T]
 
 ==== 矩阵的逆
