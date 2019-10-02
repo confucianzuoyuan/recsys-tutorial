@@ -5,3 +5,4 @@
 *.iml
 analysis.log
 tomcat/logs/
+target/
