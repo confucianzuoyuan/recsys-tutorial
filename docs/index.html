@@ -746,6 +746,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_算法使用场景">5.14. 算法使用场景：</a></li>
 </ul>
 </li>
+<li><a href="#_用python从头实现神经网络">6. 用Python从头实现神经网络</a>
+<ul class="sectlevel2">
+<li><a href="#_砖块神经元">6.1. 砖块：神经元</a></li>
+<li><a href="#_一个简单的例子">6.2. 一个简单的例子</a></li>
+<li><a href="#_编码一个神经元">6.3. 编码一个神经元</a></li>
+<li><a href="#_把神经元组装成网络">6.4. 把神经元组装成网络</a></li>
+<li><a href="#_例子前馈">6.5. 例子：前馈</a></li>
+<li><a href="#_编码神经网络前馈">6.6. 编码神经网络：前馈</a></li>
+<li><a href="#_训练神经网络第1部分">6.7. 训练神经网络，第1部分</a></li>
+<li><a href="#_损失">6.8. 损失</a></li>
+<li><a href="#_损失计算例子">6.9. 损失计算例子</a></li>
+<li><a href="#_代码mse损失">6.10. 代码：MSE损失</a></li>
+<li><a href="#_训练神经网络第2部分">6.11. 训练神经网络，第2部分</a></li>
+<li><a href="#_例子计算偏导数">6.12. 例子：计算偏导数</a></li>
+<li><a href="#_训练随机梯度下降">6.13. 训练：随机梯度下降</a></li>
+<li><a href="#_代码一个完整的神经网络">6.14. 代码：一个完整的神经网络</a></li>
+<li><a href="#_接下来">6.15. 接下来？</a></li>
+<li><a href="#_tensorflow版本">6.16. TensorFlow版本</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -6945,11 +6965,995 @@ agent.channels.memoryChannel.capacity = 10000</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_用python从头实现神经网络">6. 用Python从头实现神经网络</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_砖块神经元">6.1. 砖块：神经元</h3>
+<div class="paragraph">
+<p>首先让我们看看神经网络的基本单位，神经元。神经元接受输入，对其做一些数据操作，然后产生输出。例如，这是一个2-输入神经元：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn1.svg" alt="dnn1">
+</div>
+</div>
+<div class="paragraph">
+<p>这里发生了三个事情。首先，每个输入都跟一个权重相乘（红色）：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[x_1←x_1 \times w_1 \\
+x_2←x_2 \times w_2\]
+</div>
+</div>
+<div class="paragraph">
+<p>然后，加权后的输入求和，加上一个偏差b（绿色）：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[(x_1 \times w_1 )+(x_2 \times w_2 )+b\]
+</div>
+</div>
+<div class="paragraph">
+<p>最后，这个结果传递给一个激活函数f：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[y=f(x_1 \times w_1+x_2 \times w_2+b)\]
+</div>
+</div>
+<div class="paragraph">
+<p>激活函数的用途是将一个无边界的输入，转变成一个可预测的形式。常用的激活函数就就是S型函数：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn2.png" alt="dnn2">
+</div>
+</div>
+<div class="paragraph">
+<p>S型函数的值域是(0, 1)。简单来说，就是把(−∞, +∞)压缩到(0, 1) ，很大的负数约等于0，很大的正数约等于1。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_一个简单的例子">6.2. 一个简单的例子</h3>
+<div class="paragraph">
+<p>假设我们有一个神经元，激活函数就是S型函数，其参数如下：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[w=[0, 1] \\
+b=4\]
+</div>
+</div>
+<div class="paragraph">
+<p>w=[0, 1] 就是以向量的形式表示w_1=0, w_2=1。现在，我们给这个神经元一个输入x=[2, 3]。我们用点积来表示：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+  (w ⋅x)+b &amp;=&amp; (w_1∗x_1+w_2∗x_2 )+b \\
+           &amp;=&amp; 0∗2+1∗3+4 \\
+           &amp;=&amp; 7
+\end{align}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[y=f(w⋅x+b)=f(7)=0.999\]
+</div>
+</div>
+<div class="paragraph">
+<p>当输入是[2, 3]时，这个神经元的输出是0.999。给定输入，得到输出的过程被称为前馈（feedforward）。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_编码一个神经元">6.3. 编码一个神经元</h3>
+<div class="paragraph">
+<p>让我们来实现一个神经元！用Python的NumPy库来完成其中的数学计算：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="py"><span></span><span class="tok-kn">import</span> <span class="tok-nn">numpy</span> <span class="tok-kn">as</span> <span class="tok-nn">np</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">sigmoid</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">):</span>
+  <span class="tok-c1"># Our activation function: f(x) = 1 / (1 + e^(-x))</span>
+  <span class="tok-k">return</span> <span class="tok-mi">1</span> <span class="tok-o">/</span> <span class="tok-p">(</span><span class="tok-mi">1</span> <span class="tok-o">+</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">exp</span><span class="tok-p">(</span><span class="tok-o">-</span><span class="tok-n">x</span><span class="tok-p">))</span>
+
+<span class="tok-k">class</span> <span class="tok-nc">Neuron</span><span class="tok-p">:</span>
+  <span class="tok-k">def</span> <span class="tok-fm">__init__</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">,</span> <span class="tok-n">weights</span><span class="tok-p">,</span> <span class="tok-n">bias</span><span class="tok-p">):</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">weights</span> <span class="tok-o">=</span> <span class="tok-n">weights</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">bias</span> <span class="tok-o">=</span> <span class="tok-n">bias</span>
+
+  <span class="tok-k">def</span> <span class="tok-nf">feedforward</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">,</span> <span class="tok-n">inputs</span><span class="tok-p">):</span>
+    <span class="tok-c1"># Weight inputs, add bias, then use the activation function</span>
+    <span class="tok-n">total</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">dot</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">weights</span><span class="tok-p">,</span> <span class="tok-n">inputs</span><span class="tok-p">)</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">bias</span>
+    <span class="tok-k">return</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-n">total</span><span class="tok-p">)</span>
+
+<span class="tok-n">weights</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">])</span> <span class="tok-c1"># w1 = 0, w2 = 1</span>
+<span class="tok-n">bias</span> <span class="tok-o">=</span> <span class="tok-mi">4</span>                   <span class="tok-c1"># b = 4</span>
+<span class="tok-n">n</span> <span class="tok-o">=</span> <span class="tok-n">Neuron</span><span class="tok-p">(</span><span class="tok-n">weights</span><span class="tok-p">,</span> <span class="tok-n">bias</span><span class="tok-p">)</span>
+
+<span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">])</span>       <span class="tok-c1"># x1 = 2, x2 = 3</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">))</span>    <span class="tok-c1"># 0.9990889488055994</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>还记得这个数字吗？就是我们前面算出来的例子中的0.999。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_把神经元组装成网络">6.4. 把神经元组装成网络</h3>
+<div class="paragraph">
+<p>所谓的神经网络就是一堆神经元。这就是一个简单的神经网络：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn3.svg" alt="dnn3">
+</div>
+</div>
+<div class="paragraph">
+<p>这个网络有两个输入，一个有两个神经元（\(h_1\)和\(h_2\)）的隐藏层，以及一个有一个神经元（\(o_1\)）的输出层。要注意，\(o_1\)的输入就是\(h_1\)和\(h_2\)的输出，这样就组成了一个网络。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+隐藏层就是输入层和输出层之间的层，隐藏层可以是多层的。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_例子前馈">6.5. 例子：前馈</h3>
+<div class="paragraph">
+<p>我们继续用前面图中的网络，假设每个神经元的权重都是\(w=[0,1\)]，截距项也相同\(b=0\)，激活函数也都是S型函数。分别用\(h_1, h_2, o_1\)表示相应的神经元的输出。</p>
+</div>
+<div class="paragraph">
+<p>当输入\(x=[2,3\)]时，会得到什么结果？</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}  h1 = h2 &amp;= f(w \cdot x + b)\\  &amp;=f(0\times 2 + 1 \times 3 + 0)\\ &amp;=f(3)\\  &amp;=0.9526\\  o_1 &amp;= f(w \cdot [h_1, h_2] + b)\\  &amp;=f(0 \times h_1 + 1 \times h_2 + 0)\\ &amp;=f(0.9526)\\  &amp;=0.7216  \end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>这个神经网络对输入[2,3]的输出是0.7216，很简单。</p>
+</div>
+<div class="paragraph">
+<p>一个神经网络的层数以及每一层中的神经元数量都是任意的。基本逻辑都一样：输入在神经网络中向前传输，最终得到输出。接下来，我们会继续使用前面的这个网络。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_编码神经网络前馈">6.6. 编码神经网络：前馈</h3>
+<div class="paragraph">
+<p>接下来我们实现这个神经网络的前馈机制，还是这个图：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn3.svg" alt="dnn3">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="py"><span></span><span class="tok-kn">import</span> <span class="tok-nn">numpy</span> <span class="tok-kn">as</span> <span class="tok-nn">np</span>
+
+<span class="tok-c1"># ... code from previous section here</span>
+
+<span class="tok-k">class</span> <span class="tok-nc">OurNeuralNetwork</span><span class="tok-p">:</span>
+  <span class="tok-sd">&#39;&#39;&#39;</span>
+<span class="tok-sd">  A neural network with:</span>
+<span class="tok-sd">    - 2 inputs</span>
+<span class="tok-sd">    - a hidden layer with 2 neurons (h1, h2)</span>
+<span class="tok-sd">    - an output layer with 1 neuron (o1)</span>
+<span class="tok-sd">  Each neuron has the same weights and bias:</span>
+<span class="tok-sd">    - w = [0, 1]</span>
+<span class="tok-sd">    - b = 0</span>
+<span class="tok-sd">  &#39;&#39;&#39;</span>
+  <span class="tok-k">def</span> <span class="tok-fm">__init__</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">):</span>
+    <span class="tok-n">weights</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">])</span>
+    <span class="tok-n">bias</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
+
+    <span class="tok-c1"># The Neuron class here is from the previous section</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">h1</span> <span class="tok-o">=</span> <span class="tok-n">Neuron</span><span class="tok-p">(</span><span class="tok-n">weights</span><span class="tok-p">,</span> <span class="tok-n">bias</span><span class="tok-p">)</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">h2</span> <span class="tok-o">=</span> <span class="tok-n">Neuron</span><span class="tok-p">(</span><span class="tok-n">weights</span><span class="tok-p">,</span> <span class="tok-n">bias</span><span class="tok-p">)</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">o1</span> <span class="tok-o">=</span> <span class="tok-n">Neuron</span><span class="tok-p">(</span><span class="tok-n">weights</span><span class="tok-p">,</span> <span class="tok-n">bias</span><span class="tok-p">)</span>
+
+  <span class="tok-k">def</span> <span class="tok-nf">feedforward</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">,</span> <span class="tok-n">x</span><span class="tok-p">):</span>
+    <span class="tok-n">out_h1</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">h1</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">)</span>
+    <span class="tok-n">out_h2</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">h2</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">)</span>
+
+    <span class="tok-c1"># The inputs for o1 are the outputs from h1 and h2</span>
+    <span class="tok-n">out_o1</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">o1</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-n">out_h1</span><span class="tok-p">,</span> <span class="tok-n">out_h2</span><span class="tok-p">]))</span>
+
+    <span class="tok-k">return</span> <span class="tok-n">out_o1</span>
+
+<span class="tok-n">network</span> <span class="tok-o">=</span> <span class="tok-n">OurNeuralNetwork</span><span class="tok-p">()</span>
+<span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">])</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-n">network</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">))</span> <span class="tok-c1"># 0.7216325609518421</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>结果正确，看上去没问题。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_训练神经网络第1部分">6.7. 训练神经网络，第1部分</h3>
+<div class="paragraph">
+<p>现在有这样的数据：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Weight</th>
+<th class="tableblock halign-left valign-top">Height</th>
+<th class="tableblock halign-left valign-top">Gender</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">133</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bob</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">160</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Charlie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">152</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">120</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>接下来我们用这个数据来训练神经网络的权重和截距项，从而可以根据身高体重预测性别：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn4.svg" alt="dnn4">
+</div>
+</div>
+<div class="paragraph">
+<p>我们用0和1分别表示男性（M）和女性（F），并对数值做了转化：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Weight</th>
+<th class="tableblock halign-left valign-top">Height</th>
+<th class="tableblock halign-left valign-top">Gender</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bob</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Charlie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+我这里是随意选取了135和66来标准化数据，通常会使用平均值。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_损失">6.8. 损失</h3>
+<div class="paragraph">
+<p>在训练网络之前，我们需要量化当前的网络是『好』还是『坏』，从而可以寻找更好的网络。这就是定义损失的目的。</p>
+</div>
+<div class="paragraph">
+<p>我们在这里用平均方差（MSE）损失： \(MSE = \frac{1}{n}\sum_{i=1}^{n}(y_{true} - y_{pred})^2\) 让我们仔细看看：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>n是样品数，这里等于4（Alice、Bob、Charlie和Diana）。</p>
+</li>
+<li>
+<p>y表示要预测的变量，这里是性别。</p>
+</li>
+<li>
+<p>\(y_{true}\) 是变量的真实值（『正确答案』）。例如，Alice的 \(y_{true}\) 就是1（男性）。</p>
+</li>
+<li>
+<p>\(y_{pred}\) 是变量的预测值。这就是我们网络的输出。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>\((y_{true}-y_{pred})^2\)被称为方差（squared error）。我们的损失函数就是所有方差的平均值。预测效果于浩，损失就越少。</p>
+</div>
+<div class="paragraph">
+<p>更好的预测 = 更少的损失！</p>
+</div>
+<div class="paragraph">
+<p>训练网络 = 最小化它的损失。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_损失计算例子">6.9. 损失计算例子</h3>
+<div class="paragraph">
+<p>假设我们的网络总是输出0，换言之就是认为所有人都是男性。损失如何？</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">\(y_{true}\)</th>
+<th class="tableblock halign-left valign-top">\(y_{pred}\)</th>
+<th class="tableblock halign-left valign-top">\(y_{true}-y_{pred}\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bob</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Charlie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="stemblock">
+<div class="content">
+\[MSE = \frac{1}{4}(1+0+0+1)=0.5\]
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_代码mse损失">6.10. 代码：MSE损失</h3>
+<div class="paragraph">
+<p>下面是计算MSE损失的代码：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="py"><span></span><span class="tok-kn">import</span> <span class="tok-nn">numpy</span> <span class="tok-kn">as</span> <span class="tok-nn">np</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">mse_loss</span><span class="tok-p">(</span><span class="tok-n">y_true</span><span class="tok-p">,</span> <span class="tok-n">y_pred</span><span class="tok-p">):</span>
+  <span class="tok-c1"># y_true and y_pred are numpy arrays of the same length.</span>
+  <span class="tok-k">return</span> <span class="tok-p">((</span><span class="tok-n">y_true</span> <span class="tok-o">-</span> <span class="tok-n">y_pred</span><span class="tok-p">)</span> <span class="tok-o">**</span> <span class="tok-mi">2</span><span class="tok-p">)</span><span class="tok-o">.</span><span class="tok-n">mean</span><span class="tok-p">()</span>
+
+<span class="tok-n">y_true</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">])</span>
+<span class="tok-n">y_pred</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">])</span>
+
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-n">mse_loss</span><span class="tok-p">(</span><span class="tok-n">y_true</span><span class="tok-p">,</span> <span class="tok-n">y_pred</span><span class="tok-p">))</span> <span class="tok-c1"># 0.5</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_训练神经网络第2部分">6.11. 训练神经网络，第2部分</h3>
+<div class="paragraph">
+<p>现在我们有了一个明确的目标：最小化神经网络的损失。通过调整网络的权重和截距项，我们可以改变其预测结果，但如何才能逐步地减少损失？</p>
+</div>
+<div class="paragraph">
+<p>为了简化问题，假设我们的数据集中只有Alice：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">\(y_{true}\)</th>
+<th class="tableblock halign-left valign-top">\(y_{pred}\)</th>
+<th class="tableblock halign-left valign-top">\((y_{true}-y_{pred})^2\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>那均方差损失就只是Alice的方差：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}  MSE &amp;= \frac{1}{1}\sum_{i=1}^{1}(y_{true} - y_{pred})^2\\  &amp;=(y_{true}-y_{pred})^2\\ &amp;=(1-y_{pred})^2  \end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>也可以把损失看成是权重和截距项的函数。让我们给网络标上权重和截距项：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn5.svg" alt="dnn5">
+</div>
+</div>
+<div class="paragraph">
+<p>这样我们就可以把网络的损失表示为：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[L(w_1, w_2, w_3, w_4, w_5, w_6, b_1, b_2, b_3)\]
+</div>
+</div>
+<div class="paragraph">
+<p>假设我们要优化\(w_1\)，当我们改变\(w_1\)时，损失\(L\)会怎么变化？可以用\(\frac{\partial L}{\partial w_1}\)来回答这个问题，怎么计算？</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+接下来的数据稍微有点复杂，别担心，准备好纸和笔。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>首先，让我们用\(\frac{\partial y_{pred}}{\partial w_1}\)来改写这个偏导数：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\frac{\partial L}{\partial w_1} = \frac{\partial L}{\partial y_{pred}} * \frac{\partial y_{pred}}{\partial w_1}\]
+</div>
+</div>
+<div class="paragraph">
+<p>因为我们已经知道 \(L=(1-y_{pred})^2\) ，所以我们可以计算 \(\frac{\partial L}{\partial y_{pred}}\) ：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\frac{\partial L}{\partial y_{pred}} = \frac{\partial (1-y_{pred})^2}{\partial y_{pred}}=-2(1-y_{pred})\]
+</div>
+</div>
+<div class="paragraph">
+<p>现在让我们来搞定\(\frac{\partial y_{pred}}{\partial w_1}\)。\(h_1,h_2,o_1\)分别是其所表示的神经元的输出，我们有：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[y_{pred} = o_1 = f(w_5h_1 + w_6h_2 + b_3)\]
+</div>
+</div>
+<div class="paragraph">
+<p>由于\(w_1\)只会影响\(h_1\)（不会影响\(h_2\)），所以：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[ \frac{\partial y_{pred}}{\partial w_1} = \frac{\partial y_{pred}}{\partial h_1} * \frac{\partial h_1}{\partial w_1}\\ \frac{\partial y_{pred}}{\partial h_1} = w_5 * f'(w_5h_1 + w_6h_2 + b_3)\]
+</div>
+</div>
+<div class="paragraph">
+<p>对\(\frac{\partial h_1}{\partial w_1}\)，我们也可以这么做：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[ h_1 = f(w_1x_1 + w_2x_2 + b_1)\\  \frac{\partial h_1}{\partial w_1} = x_1 * f'(w_1x_1 + w_2x_2 + b_1)\]
+</div>
+</div>
+<div class="paragraph">
+<p>在这里，\(x_1\) 是身高，\(x_2\)是体重。这是我们第二次看到\(f'(x)\)（S型函数的导数）了。求解：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[ f(x)=\frac{1}{1-e^{-x}}\\  f'(x)=\frac{e^x}{(1+e^{-x})^2}=f(x)*(1-f(x))\]
+</div>
+</div>
+<div class="paragraph">
+<p>稍后我们会用到这个\(f'(x)\)。</p>
+</div>
+<div class="paragraph">
+<p>我们已经把\(\frac{\partial L}{\partial w_1}\)分解成了几个我们能计算的部分：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\frac{\partial L}{\partial w_1}= \frac{\partial L}{\partial y_{pred}}\frac{\partial y_{pred}}{\partial h_1}\frac{\partial h_1}{\partial w_1}\]
+</div>
+</div>
+<div class="paragraph">
+<p>这种计算偏导的方法叫『反向传播算法』(backpropagation)。</p>
+</div>
+<div class="paragraph">
+<p>好多数学符号，如果你还没搞明白的话，我们来看一个实际例子。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_例子计算偏导数">6.12. 例子：计算偏导数</h3>
+<div class="paragraph">
+<p>我们还是看数据集中只有Alice的情况：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">\(y_{true}\)</th>
+<th class="tableblock halign-left valign-top">\(y_{pred}\)</th>
+<th class="tableblock halign-left valign-top">\((y_{true}-y_{pred})^2\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>把所有的权重和截距项都分别初始化为1和0。在网络中做前馈计算：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}  h_1 &amp;= f(w_1x_1 + w_2x_2 + b_1)\\  &amp;=f(-2 + -1 + 0)\\  &amp;=0.0474 \\   h_2 &amp;= f(w_3x_1 + w_4x_2 + b_2) = 0.0474\\  o_1 &amp;=f(w_5h_1 + w_6h_2 + b_3)\\  &amp;=f(0.0474  + 0.0474 + 0)\\  &amp;=0.524  \end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>网络的输出是\(y_{pred}=0.524\)，对于Male(0)或者Female(1)都没有太强的倾向性。算一下\(\frac{\partial L}{\partial w_1}\):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[ \frac{\partial L}{\partial w_1}= \frac{\partial L}{\partial y_{pred}}\frac{\partial y_{pred}}{\partial h_1}\frac{\partial h_1}{\partial w_1}\\ \begin{align*}  \frac{\partial L}{\partial y_{pred}} &amp;= -2(1-y_{pred})\\  &amp; = -2 (1-0.524)\\  &amp;=-0.952\\  \frac{\partial y_{pred}}{\partial h_1} &amp; = x_1 * f'(w_5h_1 + w_6h_2 + b_3)\\  &amp;=1 * f'(0.0474 + 0.0474 + 0)\\  &amp;=f(0.0948)(1-f(0.0948))\\ &amp;=0.249\\  \frac{\partial h_1}{\partial w_1} &amp;= x_1 * f'(w_1x_1 + w_2x_2 + b_1)\\  &amp; = -2 * f'(-2 + -1 + 0)\\  &amp;=-2f(-3)(1-f(-3))\\  &amp;=-0.0904\\  \frac{\partial L}{\partial w_1} &amp;= -0.952 * 0.249 * -0.0904\\ &amp;=0.0214  \end{align*}\]
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+提示：前面已经得到了S型激活函数的导数\(f'(x)=f(x)*(1-f(x))\)。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>搞定！这个结果的意思就是增加\(w_1\)，\(L\)也会随之轻微上升。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_训练随机梯度下降">6.13. 训练：随机梯度下降</h3>
+<div class="paragraph">
+<p>现在训练神经网络已经万事俱备了！我们会使用名为随机梯度下降法的优化算法来优化网络的权重和截距项，实现损失的最小化。核心就是这个更新等式：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[w_1 \leftarrow w_1 - \eta\frac{\partial L}{\partial w_1}\]
+</div>
+</div>
+<div class="paragraph">
+<p>\(\eta\)是一个常数，被称为学习率，用于调整训练的速度。我们要做的就是用\(w_1\)减去\(\eta\frac{\partial L}{\partial w_1}\)：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>如果\(\frac{\partial L}{\partial w_1}\)是正数，\(w_1\)会变小，\(L\)会下降。</p>
+</li>
+<li>
+<p>如果\(\frac{\partial L}{\partial w_1}\)是负数，\(w_1\)会变大，\(L\)会上升。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>如果我们对网络中的每个权重和截距项都这样进行优化，损失就会不断下降，网络性能会不断上升。</p>
+</div>
+<div class="paragraph">
+<p>我们的训练过程是这样的：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>从我们的数据集中选择一个样本，用随机梯度下降法进行优化——每次我们都只针对一个样本进行优化；</p>
+</li>
+<li>
+<p>计算每个权重或截距项对损失的偏导（例如\(\frac{\partial L}{\partial w_1}\)、\(\frac{\partial L}{\partial w_2}\)等）；</p>
+</li>
+<li>
+<p>用更新等式更新每个权重和截距项；</p>
+</li>
+<li>
+<p>重复第一步；</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_代码一个完整的神经网络">6.14. 代码：一个完整的神经网络</h3>
+<div class="paragraph">
+<p>我们终于可以实现一个完整的神经网络了：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Weight</th>
+<th class="tableblock halign-left valign-top">Height</th>
+<th class="tableblock halign-left valign-top">Gender</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bob</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Charlie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diana</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn6.svg" alt="dnn6">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="py"><span></span><span class="tok-kn">import</span> <span class="tok-nn">numpy</span> <span class="tok-kn">as</span> <span class="tok-nn">np</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">sigmoid</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">):</span>
+  <span class="tok-c1"># Sigmoid activation function: f(x) = 1 / (1 + e^(-x))</span>
+  <span class="tok-k">return</span> <span class="tok-mi">1</span> <span class="tok-o">/</span> <span class="tok-p">(</span><span class="tok-mi">1</span> <span class="tok-o">+</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">exp</span><span class="tok-p">(</span><span class="tok-o">-</span><span class="tok-n">x</span><span class="tok-p">))</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">):</span>
+  <span class="tok-c1"># Derivative of sigmoid: f&#39;(x) = f(x) * (1 - f(x))</span>
+  <span class="tok-n">fx</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-n">x</span><span class="tok-p">)</span>
+  <span class="tok-k">return</span> <span class="tok-n">fx</span> <span class="tok-o">*</span> <span class="tok-p">(</span><span class="tok-mi">1</span> <span class="tok-o">-</span> <span class="tok-n">fx</span><span class="tok-p">)</span>
+
+<span class="tok-k">def</span> <span class="tok-nf">mse_loss</span><span class="tok-p">(</span><span class="tok-n">y_true</span><span class="tok-p">,</span> <span class="tok-n">y_pred</span><span class="tok-p">):</span>
+  <span class="tok-c1"># y_true and y_pred are numpy arrays of the same length.</span>
+  <span class="tok-k">return</span> <span class="tok-p">((</span><span class="tok-n">y_true</span> <span class="tok-o">-</span> <span class="tok-n">y_pred</span><span class="tok-p">)</span> <span class="tok-o">**</span> <span class="tok-mi">2</span><span class="tok-p">)</span><span class="tok-o">.</span><span class="tok-n">mean</span><span class="tok-p">()</span>
+
+<span class="tok-k">class</span> <span class="tok-nc">OurNeuralNetwork</span><span class="tok-p">:</span>
+  <span class="tok-sd">&#39;&#39;&#39;</span>
+<span class="tok-sd">  A neural network with:</span>
+<span class="tok-sd">    - 2 inputs</span>
+<span class="tok-sd">    - a hidden layer with 2 neurons (h1, h2)</span>
+<span class="tok-sd">    - an output layer with 1 neuron (o1)</span>
+
+<span class="tok-sd">  *** DISCLAIMER ***:</span>
+<span class="tok-sd">  The code below is intended to be simple and educational, NOT optimal.</span>
+<span class="tok-sd">  Real neural net code looks nothing like this. DO NOT use this code.</span>
+<span class="tok-sd">  Instead, read/run it to understand how this specific network works.</span>
+<span class="tok-sd">  &#39;&#39;&#39;</span>
+  <span class="tok-k">def</span> <span class="tok-fm">__init__</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">):</span>
+    <span class="tok-c1"># Weights</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w1</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w2</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w3</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w4</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w5</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w6</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+
+    <span class="tok-c1"># Biases</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b1</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b2</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+    <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b3</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">random</span><span class="tok-o">.</span><span class="tok-n">normal</span><span class="tok-p">()</span>
+
+  <span class="tok-k">def</span> <span class="tok-nf">feedforward</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">,</span> <span class="tok-n">x</span><span class="tok-p">):</span>
+    <span class="tok-c1"># x is a numpy array with 2 elements.</span>
+    <span class="tok-n">h1</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w1</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w2</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b1</span><span class="tok-p">)</span>
+    <span class="tok-n">h2</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w3</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w4</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b2</span><span class="tok-p">)</span>
+    <span class="tok-n">o1</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w5</span> <span class="tok-o">*</span> <span class="tok-n">h1</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w6</span> <span class="tok-o">*</span> <span class="tok-n">h2</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b3</span><span class="tok-p">)</span>
+    <span class="tok-k">return</span> <span class="tok-n">o1</span>
+
+  <span class="tok-k">def</span> <span class="tok-nf">train</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-p">,</span> <span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-n">all_y_trues</span><span class="tok-p">):</span>
+    <span class="tok-sd">&#39;&#39;&#39;</span>
+<span class="tok-sd">    - data is a (n x 2) numpy array, n = # of samples in the dataset.</span>
+<span class="tok-sd">    - all_y_trues is a numpy array with n elements.</span>
+<span class="tok-sd">      Elements in all_y_trues correspond to those in data.</span>
+<span class="tok-sd">    &#39;&#39;&#39;</span>
+    <span class="tok-n">learn_rate</span> <span class="tok-o">=</span> <span class="tok-mf">0.1</span>
+    <span class="tok-n">epochs</span> <span class="tok-o">=</span> <span class="tok-mi">1000</span> <span class="tok-c1"># number of times to loop through the entire dataset</span>
+
+    <span class="tok-k">for</span> <span class="tok-n">epoch</span> <span class="tok-ow">in</span> <span class="tok-nb">range</span><span class="tok-p">(</span><span class="tok-n">epochs</span><span class="tok-p">):</span>
+      <span class="tok-k">for</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-n">y_true</span> <span class="tok-ow">in</span> <span class="tok-nb">zip</span><span class="tok-p">(</span><span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-n">all_y_trues</span><span class="tok-p">):</span>
+        <span class="tok-c1"># --- Do a feedforward (we&#39;ll need these values later)</span>
+        <span class="tok-n">sum_h1</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w1</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w2</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b1</span>
+        <span class="tok-n">h1</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h1</span><span class="tok-p">)</span>
+
+        <span class="tok-n">sum_h2</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w3</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w4</span> <span class="tok-o">*</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b2</span>
+        <span class="tok-n">h2</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h2</span><span class="tok-p">)</span>
+
+        <span class="tok-n">sum_o1</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w5</span> <span class="tok-o">*</span> <span class="tok-n">h1</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w6</span> <span class="tok-o">*</span> <span class="tok-n">h2</span> <span class="tok-o">+</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b3</span>
+        <span class="tok-n">o1</span> <span class="tok-o">=</span> <span class="tok-n">sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_o1</span><span class="tok-p">)</span>
+        <span class="tok-n">y_pred</span> <span class="tok-o">=</span> <span class="tok-n">o1</span>
+
+        <span class="tok-c1"># --- Calculate partial derivatives.</span>
+        <span class="tok-c1"># --- Naming: d_L_d_w1 represents &quot;partial L / partial w1&quot;</span>
+        <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">=</span> <span class="tok-o">-</span><span class="tok-mi">2</span> <span class="tok-o">*</span> <span class="tok-p">(</span><span class="tok-n">y_true</span> <span class="tok-o">-</span> <span class="tok-n">y_pred</span><span class="tok-p">)</span>
+
+        <span class="tok-c1"># Neuron o1</span>
+        <span class="tok-n">d_ypred_d_w5</span> <span class="tok-o">=</span> <span class="tok-n">h1</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_o1</span><span class="tok-p">)</span>
+        <span class="tok-n">d_ypred_d_w6</span> <span class="tok-o">=</span> <span class="tok-n">h2</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_o1</span><span class="tok-p">)</span>
+        <span class="tok-n">d_ypred_d_b3</span> <span class="tok-o">=</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_o1</span><span class="tok-p">)</span>
+
+        <span class="tok-n">d_ypred_d_h1</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w5</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_o1</span><span class="tok-p">)</span>
+        <span class="tok-n">d_ypred_d_h2</span> <span class="tok-o">=</span> <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w6</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_o1</span><span class="tok-p">)</span>
+
+        <span class="tok-c1"># Neuron h1</span>
+        <span class="tok-n">d_h1_d_w1</span> <span class="tok-o">=</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h1</span><span class="tok-p">)</span>
+        <span class="tok-n">d_h1_d_w2</span> <span class="tok-o">=</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h1</span><span class="tok-p">)</span>
+        <span class="tok-n">d_h1_d_b1</span> <span class="tok-o">=</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h1</span><span class="tok-p">)</span>
+
+        <span class="tok-c1"># Neuron h2</span>
+        <span class="tok-n">d_h2_d_w3</span> <span class="tok-o">=</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h2</span><span class="tok-p">)</span>
+        <span class="tok-n">d_h2_d_w4</span> <span class="tok-o">=</span> <span class="tok-n">x</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">*</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h2</span><span class="tok-p">)</span>
+        <span class="tok-n">d_h2_d_b2</span> <span class="tok-o">=</span> <span class="tok-n">deriv_sigmoid</span><span class="tok-p">(</span><span class="tok-n">sum_h2</span><span class="tok-p">)</span>
+
+        <span class="tok-c1"># --- Update weights and biases</span>
+        <span class="tok-c1"># Neuron h1</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w1</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_h1</span> <span class="tok-o">*</span> <span class="tok-n">d_h1_d_w1</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w2</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_h1</span> <span class="tok-o">*</span> <span class="tok-n">d_h1_d_w2</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b1</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_h1</span> <span class="tok-o">*</span> <span class="tok-n">d_h1_d_b1</span>
+
+        <span class="tok-c1"># Neuron h2</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w3</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_h2</span> <span class="tok-o">*</span> <span class="tok-n">d_h2_d_w3</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w4</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_h2</span> <span class="tok-o">*</span> <span class="tok-n">d_h2_d_w4</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b2</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_h2</span> <span class="tok-o">*</span> <span class="tok-n">d_h2_d_b2</span>
+
+        <span class="tok-c1"># Neuron o1</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w5</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_w5</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">w6</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_w6</span>
+        <span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">b3</span> <span class="tok-o">-=</span> <span class="tok-n">learn_rate</span> <span class="tok-o">*</span> <span class="tok-n">d_L_d_ypred</span> <span class="tok-o">*</span> <span class="tok-n">d_ypred_d_b3</span>
+
+      <span class="tok-c1"># --- Calculate total loss at the end of each epoch</span>
+      <span class="tok-k">if</span> <span class="tok-n">epoch</span> <span class="tok-o">%</span> <span class="tok-mi">10</span> <span class="tok-o">==</span> <span class="tok-mi">0</span><span class="tok-p">:</span>
+        <span class="tok-n">y_preds</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">apply_along_axis</span><span class="tok-p">(</span><span class="tok-bp">self</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">data</span><span class="tok-p">)</span>
+        <span class="tok-n">loss</span> <span class="tok-o">=</span> <span class="tok-n">mse_loss</span><span class="tok-p">(</span><span class="tok-n">all_y_trues</span><span class="tok-p">,</span> <span class="tok-n">y_preds</span><span class="tok-p">)</span>
+        <span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;Epoch </span><span class="tok-si">%d</span><span class="tok-s2"> loss: </span><span class="tok-si">%.3f</span><span class="tok-s2">&quot;</span> <span class="tok-o">%</span> <span class="tok-p">(</span><span class="tok-n">epoch</span><span class="tok-p">,</span> <span class="tok-n">loss</span><span class="tok-p">))</span>
+
+<span class="tok-c1"># Define dataset</span>
+<span class="tok-n">data</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span>
+  <span class="tok-p">[</span><span class="tok-o">-</span><span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">],</span>  <span class="tok-c1"># Alice</span>
+  <span class="tok-p">[</span><span class="tok-mi">25</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">],</span>   <span class="tok-c1"># Bob</span>
+  <span class="tok-p">[</span><span class="tok-mi">17</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">],</span>   <span class="tok-c1"># Charlie</span>
+  <span class="tok-p">[</span><span class="tok-o">-</span><span class="tok-mi">15</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">6</span><span class="tok-p">],</span> <span class="tok-c1"># Diana</span>
+<span class="tok-p">])</span>
+<span class="tok-n">all_y_trues</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span>
+  <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-c1"># Alice</span>
+  <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-c1"># Bob</span>
+  <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-c1"># Charlie</span>
+  <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-c1"># Diana</span>
+<span class="tok-p">])</span>
+
+<span class="tok-c1"># Train our neural network!</span>
+<span class="tok-n">network</span> <span class="tok-o">=</span> <span class="tok-n">OurNeuralNetwork</span><span class="tok-p">()</span>
+<span class="tok-n">network</span><span class="tok-o">.</span><span class="tok-n">train</span><span class="tok-p">(</span><span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-n">all_y_trues</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>随着网络的学习，损失在稳步下降。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn7.png" alt="dnn7">
+</div>
+</div>
+<div class="paragraph">
+<p>现在我们可以用这个网络来预测性别了：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="py"><span></span><span class="tok-c1"># Make some predictions</span>
+<span class="tok-n">emily</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-o">-</span><span class="tok-mi">7</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">3</span><span class="tok-p">])</span> <span class="tok-c1"># 128 pounds, 63 inches</span>
+<span class="tok-n">frank</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span><span class="tok-mi">20</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">])</span>  <span class="tok-c1"># 155 pounds, 68 inches</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;Emily: </span><span class="tok-si">%.3f</span><span class="tok-s2">&quot;</span> <span class="tok-o">%</span> <span class="tok-n">network</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">emily</span><span class="tok-p">))</span> <span class="tok-c1"># 0.951 - F</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-s2">&quot;Frank: </span><span class="tok-si">%.3f</span><span class="tok-s2">&quot;</span> <span class="tok-o">%</span> <span class="tok-n">network</span><span class="tok-o">.</span><span class="tok-n">feedforward</span><span class="tok-p">(</span><span class="tok-n">frank</span><span class="tok-p">))</span> <span class="tok-c1"># 0.039 - M</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_接下来">6.15. 接下来？</h3>
+<div class="paragraph">
+<p>搞定了一个简单的神经网络，快速回顾一下：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>介绍了神经网络的基本结构——神经元；</p>
+</li>
+<li>
+<p>在神经元中使用S型激活函数；</p>
+</li>
+<li>
+<p>神经网络就是连接在一起的神经元；</p>
+</li>
+<li>
+<p>构建了一个数据集，输入（或特征）是体重和身高，输出（或标签）是性别；</p>
+</li>
+<li>
+<p>学习了损失函数和均方差损失；</p>
+</li>
+<li>
+<p>训练网络就是最小化其损失；</p>
+</li>
+<li>
+<p>用反向传播方法计算偏导；</p>
+</li>
+<li>
+<p>用随机梯度下降法训练网络；</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>接下来你还可以：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>用机器学习库实现更大更好的神经网络，例如TensorFlow、Keras和PyTorch；</p>
+</li>
+<li>
+<p>在浏览器中实现神经网络；</p>
+</li>
+<li>
+<p>其他类型的激活函数；</p>
+</li>
+<li>
+<p>其他类型的优化器；</p>
+</li>
+<li>
+<p>学习卷积神经网络，这给计算机视觉领域带来了革命；</p>
+</li>
+<li>
+<p>学习递归神经网络，常用语自然语言处理；</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tensorflow版本">6.16. TensorFlow版本</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="py"><span></span><span class="tok-kn">import</span> <span class="tok-nn">tensorflow</span> <span class="tok-kn">as</span> <span class="tok-nn">tf</span>
+<span class="tok-kn">import</span> <span class="tok-nn">numpy</span> <span class="tok-kn">as</span> <span class="tok-nn">np</span>
+
+<span class="tok-n">data</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span>
+  <span class="tok-p">[</span><span class="tok-o">-</span><span class="tok-mf">2.0</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">],</span>  <span class="tok-c1"># Alice</span>
+  <span class="tok-p">[</span><span class="tok-mi">25</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">],</span>   <span class="tok-c1"># Bob</span>
+  <span class="tok-p">[</span><span class="tok-mi">17</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">],</span>   <span class="tok-c1"># Charlie</span>
+  <span class="tok-p">[</span><span class="tok-o">-</span><span class="tok-mi">15</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">6</span><span class="tok-p">],</span> <span class="tok-c1"># Diana</span>
+<span class="tok-p">])</span>
+<span class="tok-n">all_y_trues</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([</span>
+  <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-c1"># Alice</span>
+  <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-c1"># Bob</span>
+  <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-c1"># Charlie</span>
+  <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-c1"># Diana</span>
+<span class="tok-p">])</span>
+
+<span class="tok-n">inputs</span> <span class="tok-o">=</span> <span class="tok-n">tf</span><span class="tok-o">.</span><span class="tok-n">keras</span><span class="tok-o">.</span><span class="tok-n">Input</span><span class="tok-p">(</span><span class="tok-n">shape</span><span class="tok-o">=</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">,))</span>
+<span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-n">tf</span><span class="tok-o">.</span><span class="tok-n">keras</span><span class="tok-o">.</span><span class="tok-n">layers</span><span class="tok-o">.</span><span class="tok-n">Dense</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-n">use_bias</span><span class="tok-o">=</span><span class="tok-bp">True</span><span class="tok-p">)(</span><span class="tok-n">inputs</span><span class="tok-p">)</span>
+<span class="tok-n">outputs</span> <span class="tok-o">=</span> <span class="tok-n">tf</span><span class="tok-o">.</span><span class="tok-n">keras</span><span class="tok-o">.</span><span class="tok-n">layers</span><span class="tok-o">.</span><span class="tok-n">Dense</span><span class="tok-p">(</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">use_bias</span><span class="tok-o">=</span><span class="tok-bp">True</span><span class="tok-p">,</span> <span class="tok-n">activation</span><span class="tok-o">=</span><span class="tok-s1">&#39;sigmoid&#39;</span><span class="tok-p">)(</span><span class="tok-n">x</span><span class="tok-p">)</span>
+<span class="tok-n">m</span> <span class="tok-o">=</span> <span class="tok-n">tf</span><span class="tok-o">.</span><span class="tok-n">keras</span><span class="tok-o">.</span><span class="tok-n">Model</span><span class="tok-p">(</span><span class="tok-n">inputs</span><span class="tok-p">,</span> <span class="tok-n">outputs</span><span class="tok-p">)</span>
+
+<span class="tok-n">m</span><span class="tok-o">.</span><span class="tok-n">compile</span><span class="tok-p">(</span><span class="tok-n">tf</span><span class="tok-o">.</span><span class="tok-n">keras</span><span class="tok-o">.</span><span class="tok-n">optimizers</span><span class="tok-o">.</span><span class="tok-n">SGD</span><span class="tok-p">(</span><span class="tok-n">learning_rate</span><span class="tok-o">=</span><span class="tok-mf">0.1</span><span class="tok-p">),</span> <span class="tok-s1">&#39;mse&#39;</span><span class="tok-p">)</span>
+<span class="tok-n">m</span><span class="tok-o">.</span><span class="tok-n">fit</span><span class="tok-p">(</span><span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-n">all_y_trues</span><span class="tok-p">,</span> <span class="tok-n">epochs</span><span class="tok-o">=</span><span class="tok-mi">1000</span><span class="tok-p">,</span> <span class="tok-n">batch_size</span><span class="tok-o">=</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">verbose</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">)</span>
+
+<span class="tok-n">emily</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([[</span><span class="tok-o">-</span><span class="tok-mi">7</span><span class="tok-p">,</span> <span class="tok-o">-</span><span class="tok-mi">3</span><span class="tok-p">]])</span>
+<span class="tok-n">frank</span> <span class="tok-o">=</span> <span class="tok-n">np</span><span class="tok-o">.</span><span class="tok-n">array</span><span class="tok-p">([[</span><span class="tok-mi">20</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">]])</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-n">m</span><span class="tok-o">.</span><span class="tok-n">predict</span><span class="tok-p">(</span><span class="tok-n">emily</span><span class="tok-p">))</span>
+<span class="tok-k">print</span><span class="tok-p">(</span><span class="tok-n">m</span><span class="tok-o">.</span><span class="tok-n">predict</span><span class="tok-p">(</span><span class="tok-n">frank</span><span class="tok-p">))</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2019-09-15 21:47:15 +0800
+Last updated 2019-10-02 18:49:17 +0800
 </div>
 </div>
 <style>
