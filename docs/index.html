@@ -766,6 +766,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_tensorflow版本">6.16. TensorFlow版本</a></li>
 </ul>
 </li>
+<li><a href="#_神经网络bp反向传播算法原理和详细推导流程">7. 神经网络BP反向传播算法原理和详细推导流程</a>
+<ul class="sectlevel2">
+<li><a href="#_反向传播算法和bp网络简介">7.1. 反向传播算法和BP网络简介</a></li>
+<li><a href="#_信息前向传播">7.2. 信息前向传播</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -7949,11 +7955,121 @@ b=4\]
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_神经网络bp反向传播算法原理和详细推导流程">7. 神经网络BP反向传播算法原理和详细推导流程</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_反向传播算法和bp网络简介">7.1. 反向传播算法和BP网络简介</h3>
+<div class="paragraph">
+<p>误差反向传播算法简称反向传播算法（即BP算法）。使用反向传播算法的多层感知器又称为BP神经网络。BP算法是一个迭代算法，它的基本思想为：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>先计算每一层的状态和激活值，直到最后一层（即信号是前向传播的）；</p>
+</li>
+<li>
+<p>计算每一层的误差，误差的计算过程是从最后一层向前推进的（这就是反向传播算法名字的由来）；</p>
+</li>
+<li>
+<p>更新参数（目标是误差变小）。迭代前面两个步骤，直到满足停止准则（比如相邻两次迭代的误差的差别很小）。</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>本文的记号说明：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>\(n_l\)表示第\(l\)层神经元的个数；</p>
+</li>
+<li>
+<p>\(f(\cdot)\)表示神经元的激活函数；</p>
+</li>
+<li>
+<p>\(W^{(l)} \in \mathbb{R}^{n_l \times n_{l-1}}\)表示第\(l-1\)层到第\(l\)层的权重矩阵；</p>
+</li>
+<li>
+<p>\(w_{ij}^{(l)}\)是权重矩阵\(W^{(l)}\)中的元素，表示第\(l-1\)层第\(j\)个神经元到第\(l\)层第\(i\)个神经元的连接的权重（注意标号的顺序）；</p>
+</li>
+<li>
+<p>\(\textbf{b}^{(l)}=(b_1^{(l)},b_2^{(l)},\dots,b_{n_l}^{(l)})^T \in \mathbb{R}^{n_l}\)表示\(l-1\)层到第\(l\)层的偏置；</p>
+</li>
+<li>
+<p>\(\textbf{z}^{(l)}=(z_1^{(l)},z_2^{(l)},\dots,z_{n_l}^{(l)})^T \in \mathbb{R}^{n_l}\)表示\(l\)层神经元的状态；</p>
+</li>
+<li>
+<p>\(\textbf{a}^{(l)}=(a_1^{(l)},a_2^{(l)},\dots,a_{n_l}^{(l)})^T \in \mathbb{R}^{n_l}\)表示\(l\)层神经元的激活值（即输出值）；</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>关于记号的特别注意</strong>：不同的文献所采用的记号可能不同，这将导致不同文献的公式结论可能不同。如Andrew Ng的教程中的\(W^{(l)}\)表示的是第\(l\)层到第\(l+1\)层的权重矩阵。又如，本文用“下标”来标记一个向量的不同分量，而有一些资料却用“上标”来标记向量的不同分量。</p>
+</div>
+<div class="paragraph">
+<p>下面以三层感知器(即只含有一个隐藏层的多层感知器)为例介绍“反向传播算法(BP算法)”。</p>
+</div>
+<div class="paragraph">
+<p>三层感知机如图1所示。例子中，输入数据\(\textbf{x}=(x_1,x_2,x_3)^T\)是3维的（对于第一层，可以认为\(a_i^{(1)}=x_i\)），唯一的隐藏层有3个节点，输出数据是2维的。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dnn8.png" alt="dnn8">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_信息前向传播">7.2. 信息前向传播</h3>
+<div class="paragraph">
+<p>显然，图1所示神经网络的第2层神经元的状态及激活值可以通过下面的计算得到：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[z_1^{(2)}=w_{11}^{(2)}x_1+w_{12}^{(2)}x_2+w_{13}^{(2)}x_3+b_1^{(2)} \\
+z_2^{(2)}=w_{21}^{(2)}x_1+w_{22}^{(2)}x_2+w_{23}^{(2)}x_3+b_2^{(2)} \\
+z_3^{(2)}=w_{31}^{(2)}x_1+w_{32}^{(2)}x_2+w_{33}^{(2)}x_3+b_3^{(2)} \\
+a_1^{(2)}=f(z_1^{(2)}) \\
+a_2^{(2)}=f(z_2^{(2)}) \\
+a_3^{(2)}=f(z_3^{(2)})\]
+</div>
+</div>
+<div class="paragraph">
+<p>类似的，第3层神经元的状态及激活值可以通过下面的计算得到：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[z_1^{(3)}=w_{11}^{(3)}a_1^{(2)}+w_{12}^{(2)}a_2^{(2)}+w_{13}^{(2)}a_3^{(2)}+b_1^{(3)} \\
+z_2^{(3)}=w_{21}^{(3)}a_1^{(2)}+w_{22}^{(3)}a_2^{(2)}+w_{23}^{(2)}a_3^{(2)}+b_2^{(3)} \\
+a_1^{(3)}=f(z_1^{(3)}) \\
+a_2^{(3)}=f(z_2^{(3)})\]
+</div>
+</div>
+<div class="paragraph">
+<p>可以总结出，第\(l(2 \le l \le L)\)层神经元的状态及激活值为（下面式子是向量表示形式）：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\textbf{z}^{(l)}=W^{(l)} \textbf{a}^{(l-1)}+\textbf{b}^{(l)} \\
+\textbf{a}^{(l)}=f(\textbf{z}^{(l)})\]
+</div>
+</div>
+<div class="paragraph">
+<p>对于\(L\)层感知机，网络的最终输出为\(\textbf{a}^{(L)}\)。前馈神经网络中信息的前向传递过程如下：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\textbf{x}=\textbf{a}^{(1)} \rightarrow \textbf{z}^{(2)} \rightarrow \dots \rightarrow \textbf{a}^{(L-1)} \rightarrow \textbf{z}^{(L)} \rightarrow \textbf{a}^{(L)}=y\]
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2019-10-02 18:49:17 +0800
+Last updated 2019-10-03 20:53:11 +0800
 </div>
 </div>
 <style>

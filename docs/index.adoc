@@ -22,3 +22,5 @@ include::chap4.adoc[]
 include::chap5.adoc[]
 
 include::chap6.adoc[]
+
+include::chap7.adoc[]
