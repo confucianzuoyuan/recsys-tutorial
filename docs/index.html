@@ -770,6 +770,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_反向传播算法和bp网络简介">7.1. 反向传播算法和BP网络简介</a></li>
 <li><a href="#_信息前向传播">7.2. 信息前向传播</a></li>
+<li><a href="#_误差反向传播">7.3. 误差反向传播</a>
+<ul class="sectlevel3">
+<li><a href="#_输出层的权重参数更新">7.3.1. 输出层的权重参数更新</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -8060,6 +8065,97 @@ a_2^{(3)}=f(z_2^{(3)})\]
 <div class="stemblock">
 <div class="content">
 \[\textbf{x}=\textbf{a}^{(1)} \rightarrow \textbf{z}^{(2)} \rightarrow \dots \rightarrow \textbf{a}^{(L-1)} \rightarrow \textbf{z}^{(L)} \rightarrow \textbf{a}^{(L)}=y\]
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_误差反向传播">7.3. 误差反向传播</h3>
+<div class="paragraph">
+<p>“信息向前传播”讲的是已知各个神经元的参数后，如何得到神经网络的输出。但怎么得到各个神经元的参数呢？“误差反向传播”算法解决的就是这个问题。</p>
+</div>
+<div class="paragraph">
+<p>假设训练数据为\({(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),\dots,(x^{(i)},y^{(i)}),\dots,(x^{(N)},y^{(N)})}\)，即共有\(N\)个。又假设输出数据为\(n_L\)维的，即\(\textbf{y}^{(i)}=(y_1^{(i)},\dots,y_{n_L}^{(i)})^T\)。</p>
+</div>
+<div class="paragraph">
+<p>对某一个训练数据\((\textbf{x}^{(i)},\textbf{y}^{(i)})\)来说，其代价函数可写为：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+E_{(i)} &amp;= \frac{1}{2} \parallel \textbf{y}^{(i)} - \textbf{(o)}^{(i)} \parallel \\
+&amp;= \frac{1}{2} \sum_{k=1}^{n_L}(y_k^{(i)} - o_k^{(i)})^2
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>说明1：\(\textbf{y}^{(i)}\)为期望的输出（是训练数据给出的已知值），\(\textbf{o}^{(i)}\)为神经网络对输入\(\textbf{x}^{(i)}\)产生的实际输出。</p>
+</div>
+<div class="paragraph">
+<p>说明2：代价函数中的系数\(\frac{1}{2}\)显然是不必要的，它的存在仅仅是为了后续计算时更方便。</p>
+</div>
+<div class="paragraph">
+<p>说明3：以图1所示的神经网络为例子，\(n_L=2,\textbf{y}^{(i)}=(y_1^{(i)},y_2^{(i)})^T\)，从而有\(E_{(i)}=\frac{1}{2}(y_1^{(i)}-a_1^{(3)})^2+\frac{1}{2}(y_2^{(i)}-a_2^{(3)})^2\)，如果展开到隐藏层，则有\(E_{(i)}=\frac{1}{2}(y_1^{(i)}-f(w_{11}^{(3)}a_1^{(2)}+w_{12}^{(3)}a_2^{(2)}+w_{13}^{(3)}a_3^{(2)}+b_1^{(3)}))^2 + \frac{1}{2}(y_2^{(i)}-f(w_{21}^{(3)}a_1^{(2)}+w_{22}^{(3)}a_2^{(2)}+w_{23}^{(3)}a_3^{(2)}+b_2^{(3)}))^2\)，还可以进一步展开到输入层（替换掉\(a_1^{(2)},a_2^{(2)},a_3^{(2)}\)即可），最后可得：<strong>代价函数\(E_{(i)}\)仅和权重矩阵\(W^{(l)}\)和偏置向量\(b^{(l)}\)相关，调整权重和偏置可以减少或增大代价（误差）。</strong></p>
+</div>
+<div class="paragraph">
+<p>显然，所有训练数据的总体（平均）代价可写为：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[E_{total}=\frac{1}{N}\sum_{i=1}^N E_{(i)}\]
+</div>
+</div>
+<div class="paragraph">
+<p>我们的目标就是调整权重和偏置使总体代价（误差）变小，求得总体代价取最小值时对应的各个神经元的参数（即权重和偏置）。</p>
+</div>
+<div class="paragraph">
+<p>如果采用梯度下降法（在这里，又可称为“批量梯度下降法”），可以用下面公式更新参数\(w_{ij}^{(l)},b_i^{(l)},2 \le l \le L\)：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+W^{(l)} &amp;= W^{(l)} - \mu\frac{\partial E_{total}}{\partial W^{(l)}} \\
+&amp;= W^{(l)} - \frac{\mu}{N}\sum_{i=1}^N \frac{\partial E_{(i)}}{\partial W^{(l)}} \\
+b^{(l)} &amp;= b^{(l)} - \mu\frac{\partial E_{total}}{\partial b^{(l)}} \\
+&amp;= b^{(l)} - \frac{\mu}{N}\sum_{i=1}^N\frac{\partial E_{(i)}}{\partial b^{(l)}}
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>由上面公式可知，只需求得每一个训练数据的代价函数\(E_{(i)}\)对参数的偏导数\(\frac{\partial E_{(i)}}{\partial W^{(l)}},\frac{\partial E_{(i)}}{\partial b^{(l)}}\)即可得到参数的迭代更新公式。</p>
+</div>
+<div class="paragraph">
+<p><strong>为简单起见，在下文的推导中，我们去掉\(E_{(i)}\)的下标，直接记为E（要理解它是单个训练数据的误差）。</strong></p>
+</div>
+<div class="paragraph">
+<p>下面将介绍用“反向传播算法”求解单个训练数据误差对参数的偏导数\(\frac{\partial E}{\partial W^{(l)}}\)和\(\frac{\partial E}{\partial b^{(l)}}\)的过程。我们求解一个简单的情况：图1所示神经网络，最后再归纳出通用公式。</p>
+</div>
+<div class="sect3">
+<h4 id="_输出层的权重参数更新">7.3.1. 输出层的权重参数更新</h4>
+<div class="paragraph">
+<p>把\(E\)展开到隐藏层，有：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+E &amp;= \frac{1}{2} \parallel \textbf{y}-\textbf{o} \parallel \\
+&amp;= \frac{1}{2} \parallel \textbf{y}-\textbf{a}^{(3)} \parallel \\
+&amp;= \frac{1}{2}(y_1^{(i)}-a_1^{(3)})^2+\frac{1}{2}(y_2^{(i)}-a_2^{(3)})^2 \\
+&amp;= \frac{1}{2}((y_1-f(z_1^{(3)}))^2+(y_2-f(z_2^{(3)}))^2) \\
+&amp;= \frac{1}{2}(y_1^{(i)}-f(w_{11}^{(3)}a_1^{(2)}+w_{12}^{(3)}a_2^{(2)}+w_{13}^{(3)}a_3^{(2)}+b_1^{(3)}))^2+\frac{1}{2}(y_2^{(i)}-f(w_{21}^{(3)}a_1^{(2)}+w_{22}^{(3)}a_2^{(2)}+w_{23}^{(3)}a_3^{(2)}+b_2^{(3)}))^2
+\end{align}\]
+</div>
+</div>
+<div class="paragraph">
+<p>由求导的链式法则，对“输出层神经元的权重参数”求偏导，有：</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{align}
+\frac{\partial E}{\partial w_{11}^{(3)}} &amp;= \frac{1}{2} \cdot 2(y_1-a_1^{(3)})(-\frac{\partial a_1^{(3)}}{\partial w_{11}^{(3)}}) \\
+&amp;= -(y_1-a_1^{(3)})f'(z_1^{3})\frac{\partial z_1^{(3)}}{\partial w_{11}^{(3)}} \\
+&amp;= -(y_1-a_1^{(3)})f'(z_1^{3})a_1^{(2)}
+\end{align}\]
+</div>
 </div>
 </div>
 </div>
